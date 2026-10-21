@@ -1,0 +1,2520 @@
+{
+ "meta": {
+  "du_an": "KHU DÂN CƯ THỦY NGUYÊN",
+  "dia_diem": "PHƯỜNG THỦY NGUYÊN VÀ PHƯỜNG HÒA BÌNH, THÀNH PHỐ HẢI PHÒNG",
+  "chu_dau_tu": "CÔNG TY CỔ PHẦN UNION SUCCESS VIỆT NAM",
+  "tvqlda": "CÔNG TY CỔ PHẦN ĐẦU TƯ VÀ XÂY DỰNG CGM",
+  "tvgs": "CÔNG TY CỔ PHẦN TEXO TƯ VẤN VÀ ĐẦU TƯ",
+  "tieu_de": "DANH MỤC HỒ SƠ HOÀN THÀNH"
+ },
+ "loai_nt": "HT",
+ "vai_tro": "chinh",
+ "nghi_dinh": "NĐ 207/2026",
+ "kpi": {
+  "tong_dong": 63,
+  "dong_chi_tiet": 51,
+  "muc_B": 26,
+  "muc_B_co": 4,
+  "muc_B_dat": 3,
+  "ty_le_B": 15,
+  "so_ma": 50,
+  "so_ma_gom": 0,
+  "ty_le_co_ma": 98,
+  "high": 4,
+  "mid": 13,
+  "info": 5,
+  "tu_ngay": "07/01/2025",
+  "den_ngay": "01/12/2025",
+  "chua_phan_loai": 0
+ },
+ "ket_luan": "CHƯA ĐỦ – còn mục cốt lõi chưa có trong danh mục, cần bổ sung trước khi trình ký.",
+ "findings": [
+  {
+   "muc_do": "high",
+   "ma_loi": "F01",
+   "tieu_de": "Mục I.2 – QĐ phê duyệt dự án, BCNCKT / BCKTKT: chưa thấy trong danh mục",
+   "chi_tiet": "Quyết định phê duyệt dự án đầu tư xây dựng công trình và Báo cáo nghiên cứu khả thi hoặc Báo cáo kinh tế - kỹ thuật.",
+   "dong": [],
+   "muc_pl": "I.2",
+   "de_xuat": "Đề nghị bổ sung số, ngày QĐ phê duyệt dự án (hoặc BCKTKT) làm căn cứ.",
+   "stt": 1
+  },
+  {
+   "muc_do": "high",
+   "ma_loi": "F01",
+   "tieu_de": "Mục II.3 – Thẩm tra, thẩm định, QĐ phê duyệt thiết kế + danh mục bản vẽ, chỉ dẫn kỹ thuật: chưa thấy trong danh mục",
+   "chi_tiet": "Kết quả thẩm tra, thẩm định thiết kế; QĐ phê duyệt thiết kế kèm hồ sơ thiết kế đã phê duyệt (có danh mục bản vẽ kèm theo); chỉ dẫn kỹ thuật.",
+   "dong": [],
+   "muc_pl": "II.3",
+   "de_xuat": "Bổ sung số, ngày QĐ phê duyệt thiết kế (TKBVTC) và danh mục bản vẽ kèm theo.",
+   "stt": 2
+  },
+  {
+   "muc_do": "high",
+   "ma_loi": "F01",
+   "tieu_de": "Mục III.13 – Biên bản nghiệm thu hoàn thành hạng mục / công trình: chưa thấy trong danh mục",
+   "chi_tiet": "Biên bản nghiệm thu hoàn thành hạng mục công trình, công trình xây dựng.",
+   "dong": [],
+   "muc_pl": "III.13",
+   "de_xuat": "Bổ sung biên bản nghiệm thu hoàn thành hạng mục/công trình (đủ thành phần ký theo Điều 24.6).",
+   "stt": 3
+  },
+  {
+   "muc_do": "high",
+   "ma_loi": "F01",
+   "tieu_de": "Mục T.1 – Báo cáo hoàn thành công tác giám sát (Phụ lục IVb): chưa thấy trong danh mục",
+   "chi_tiet": "Báo cáo hoàn thành công tác giám sát thi công gói thầu/giai đoạn/hạng mục/công trình của TVGS (Phụ lục IVb NĐ 207).",
+   "dong": [],
+   "muc_pl": "T.1",
+   "de_xuat": "Bổ sung báo cáo hoàn thành công tác giám sát của TVGS theo Phụ lục IVb NĐ 207.",
+   "stt": 4
+  },
+  {
+   "muc_do": "mid",
+   "ma_loi": "F01",
+   "tieu_de": "Mục I.7 – Giấy phép xây dựng: chưa thấy trong danh mục",
+   "chi_tiet": "Giấy phép xây dựng, trừ trường hợp được miễn.",
+   "dong": [],
+   "muc_pl": "I.7",
+   "de_xuat": "Bổ sung số, ngày Giấy phép xây dựng; nếu được miễn phép thì ghi rõ miễn theo trường hợp nào và dẫn tài liệu thể hiện việc miễn.",
+   "stt": 5
+  },
+  {
+   "muc_do": "mid",
+   "ma_loi": "F01",
+   "tieu_de": "Mục I.9 – Năng lực nhà thầu: chưa thấy trong danh mục",
+   "chi_tiet": "Các tài liệu chứng minh năng lực của các nhà thầu theo quy định.",
+   "dong": [],
+   "muc_pl": "I.9",
+   "de_xuat": "Bổ sung hoặc ghi rõ lý do không có.",
+   "stt": 6
+  },
+  {
+   "muc_do": "mid",
+   "ma_loi": "F01",
+   "tieu_de": "Mục III.1 – Danh mục thay đổi thiết kế + văn bản phê duyệt: chưa thấy trong danh mục",
+   "chi_tiet": "Danh mục các thay đổi thiết kế trong quá trình thi công và các văn bản thẩm định, phê duyệt của cấp có thẩm quyền.",
+   "dong": [],
+   "muc_pl": "III.1",
+   "de_xuat": "Có thay đổi thiết kế trong thi công không? Nếu không có, danh mục phải ghi rõ 'Không có thay đổi'.",
+   "stt": 7
+  },
+  {
+   "muc_do": "mid",
+   "ma_loi": "F01",
+   "tieu_de": "Mục III.4 – Xuất xứ, hợp quy, hợp chuẩn vật liệu – sản phẩm: chưa thấy trong danh mục",
+   "chi_tiet": "Chứng từ xuất xứ, nhãn mác, công bố tiêu chuẩn; chứng nhận/công bố hợp quy; chứng nhận hợp chuẩn (nếu có). Danh mục có các dòng 'Hồ sơ chất lượng …' – thành phần này có thể nằm bên trong nhưng danh mục không thể hiện được; cần danh mục con của từng quyển.",
+   "dong": [],
+   "muc_pl": "III.4",
+   "de_xuat": "Bổ sung danh mục nghiệm thu vật liệu đầu vào kèm CO/CQ, hợp quy theo từng đợt.",
+   "stt": 8
+  },
+  {
+   "muc_do": "mid",
+   "ma_loi": "F01",
+   "tieu_de": "Mục III.5 – Kết quả quan trắc, đo đạc, thí nghiệm: chưa thấy trong danh mục",
+   "chi_tiet": "Các kết quả quan trắc (nếu có), đo đạc, thí nghiệm trong quá trình thi công. Danh mục có các dòng 'Hồ sơ chất lượng …' – thành phần này có thể nằm bên trong nhưng danh mục không thể hiện được; cần danh mục con của từng quyển.",
+   "dong": [],
+   "muc_pl": "III.5",
+   "de_xuat": "Bổ sung danh mục kết quả thí nghiệm (số phiếu, ngày, đơn vị thí nghiệm) và đối chiếu với thiết kế.",
+   "stt": 9
+  },
+  {
+   "muc_do": "mid",
+   "ma_loi": "F01",
+   "tieu_de": "Mục III.8 – Hồ sơ QLCL thiết bị lắp đặt: chưa thấy trong danh mục",
+   "chi_tiet": "Hồ sơ quản lý chất lượng của thiết bị lắp đặt vào công trình.",
+   "dong": [],
+   "muc_pl": "III.8",
+   "de_xuat": "Hạng mục có thiết bị lắp đặt không? Nếu có, bổ sung hồ sơ QLCL thiết bị (CO/CQ, chạy thử).",
+   "stt": 10
+  },
+  {
+   "muc_do": "mid",
+   "ma_loi": "F01",
+   "tieu_de": "Mục III.9 – Quy trình vận hành, quy trình bảo trì: chưa thấy trong danh mục",
+   "chi_tiet": "Quy trình vận hành, khai thác công trình (nếu có); quy trình bảo trì công trình.",
+   "dong": [],
+   "muc_pl": "III.9",
+   "de_xuat": "Quy trình bảo trì, quy trình vận hành do bên nào lập (thiết kế / nhà thầu cung cấp – lắp đặt thiết bị)? Đề nghị bổ sung hoặc cho biết nơi lưu.",
+   "stt": 11
+  },
+  {
+   "muc_do": "mid",
+   "ma_loi": "F01",
+   "tieu_de": "Mục III.10b – PCCC: nghiệm thu hệ thống / văn bản của cơ quan có thẩm quyền: chưa thấy – nếu không có phải ghi rõ “không có”",
+   "chi_tiet": "Văn bản thỏa thuận, chấp thuận, xác nhận của cơ quan nhà nước có thẩm quyền về an toàn phòng cháy, chữa cháy.",
+   "dong": [],
+   "muc_pl": "III.10b",
+   "de_xuat": "Đã có biên bản nghiệm thu (nội bộ) hệ thống PCCC trước khi đưa công trình vào sử dụng chưa? Có văn bản của cơ quan có thẩm quyền về PCCC (nếu thuộc diện) không?",
+   "stt": 12
+  },
+  {
+   "muc_do": "mid",
+   "ma_loi": "F01",
+   "tieu_de": "Mục T.3 – Nhật ký thi công xây dựng: chưa thấy trong danh mục",
+   "chi_tiet": "Nhật ký thi công xây dựng công trình (căn cứ nghiệm thu, đối chiếu với biên bản).",
+   "dong": [],
+   "muc_pl": "T.3",
+   "de_xuat": "Bổ sung nhật ký thi công để đối chiếu ngày nghiệm thu.",
+   "stt": 13
+  },
+  {
+   "muc_do": "mid",
+   "ma_loi": "F01",
+   "tieu_de": "4 mục hồ sơ pháp lý dự án (do Chủ đầu tư lập, lưu) chưa được dẫn trong danh mục",
+   "chi_tiet": "I.3 Nhiệm vụ thiết kế, thẩm định dự án, TKCS · I.6 Giao đất, cho thuê đất · II.1 Nhiệm vụ, phương án, báo cáo khảo sát · II.2 Phê duyệt báo cáo kết quả khảo sát. Danh mục hoàn thành hạng mục/gói thầu không cần kèm bản gốc nhưng nên dẫn số hiệu văn bản để người đọc biết căn cứ.",
+   "dong": [],
+   "muc_pl": "I.3,I.6,II.1,II.2",
+   "de_xuat": "Dẫn số, ngày các văn bản pháp lý dự án (hoặc ghi 'CĐT lưu tại …'); mục không phát sinh ghi 'Không có'.",
+   "stt": 14
+  },
+  {
+   "muc_do": "mid",
+   "ma_loi": "F01",
+   "tieu_de": "5 mục ghi “(nếu có)” trong PL VII chưa thấy và chưa ghi rõ “Không có”",
+   "chi_tiet": "I.1 Chủ trương đầu tư, BC nghiên cứu tiền khả thi · I.5 Thỏa thuận quy hoạch, đấu nối, ĐTM, an toàn · III.10c Chấp thuận về an toàn môi trường · III.10d An toàn lao động, an toàn vận hành thiết bị (kiểm định) · III.10e Cho phép đấu nối hạ tầng kỹ thuật",
+   "dong": [],
+   "muc_pl": "I.1,I.5,III.10c,III.10d,III.10e",
+   "de_xuat": "Với mục không phát sinh, ghi dòng 'Không có' để chứng minh đã xem xét đủ danh mục.",
+   "stt": 15
+  },
+  {
+   "muc_do": "mid",
+   "ma_loi": "F02",
+   "tieu_de": "Mục III.3 – Kế hoạch, biện pháp kiểm soát chất lượng: chưa ghi số/ngày văn bản phê duyệt/chấp thuận",
+   "chi_tiet": "4 dòng thuộc mục này (dòng 9, 10, 11, 12). Yêu cầu hình thức: Phải có văn bản phê duyệt / chấp thuận.",
+   "dong": [
+    9,
+    10,
+    11,
+    12
+   ],
+   "muc_pl": "III.3",
+   "de_xuat": "Bổ sung thông tin còn thiếu.",
+   "stt": 16
+  },
+  {
+   "muc_do": "mid",
+   "ma_loi": "F16",
+   "tieu_de": "18 mã có trong báo cáo đăng tải nhưng không có trong danh mục",
+   "chi_tiet": "HS.2026.1437 (Hợp đồng thi công Vĩnh Cửu); HS.2026.1438 (Đăng ký kinh doanh, Hồ sơ năng lực nhà thầu Vĩnh C); HS.2026.1440 (Hồ sơ nhân sự Ban chỉ huy (Quyết định thành lập BC); HS.2026.1441 (Bảo hiểm bắt buộc cho người lao động); HS.2026.1445 (Kế hoạch nghiệm thu công việc, kế hoạch thí nghiệm); HS.2026.1439 (Biện pháp + tiến độ thi công + Bản vẽ triển khai t); HS.2026.1444 (Biên bản bàn giao mặt bằng); HS.2026.1443 (Phê duyệt vật liệu đầu vào); HS.2026.1442 (Phê duyệt phòng thí nghiệm); HS.2026.1446 (Bản vẽ hoàn công)",
+   "dong": [],
+   "muc_pl": null,
+   "de_xuat": "Đưa các hồ sơ này vào đúng mục của danh mục hoặc giải thích lý do không đưa.",
+   "stt": 17
+  },
+  {
+   "muc_do": "info",
+   "ma_loi": "F05",
+   "tieu_de": "1 dòng hồ sơ chưa có mã VPĐT – chưa đăng tải hoặc chưa thể hiện",
+   "chi_tiet": "Dòng: 50",
+   "dong": [
+    50
+   ],
+   "muc_pl": null,
+   "de_xuat": "Đăng tải và ghi mã HS cho từng dòng; hồ sơ chưa có thì ghi 'chưa có'.",
+   "stt": 18
+  },
+  {
+   "muc_do": "info",
+   "ma_loi": "F12",
+   "tieu_de": "Phần thông tin chung của danh mục còn thiếu: Nhà thầu thi công, Hạng mục / gói thầu",
+   "chi_tiet": "Quyển danh mục cần thể hiện rõ dự án, hạng mục/gói thầu, địa điểm, chủ đầu tư, các nhà thầu và số hợp đồng để xác định phạm vi hồ sơ.",
+   "dong": [],
+   "muc_pl": null,
+   "de_xuat": "Bổ sung khối thông tin chung ở đầu danh mục.",
+   "stt": 19
+  },
+  {
+   "muc_do": "info",
+   "ma_loi": "F13",
+   "tieu_de": "Tài liệu muộn nhất ghi ngày 01/12/2025 (trước 01/7/2026)",
+   "chi_tiet": "Nếu nghiệm thu diễn ra trước 01/7/2026 thì căn cứ là NĐ 06/2021 (Phụ lục VIb). Nhập ngày nghiệm thu để công cụ chấm đúng nghị định.",
+   "dong": [],
+   "muc_pl": null,
+   "de_xuat": "",
+   "stt": 20
+  },
+  {
+   "muc_do": "info",
+   "ma_loi": "F15",
+   "tieu_de": "Danh mục chưa có cột tình trạng (bản gốc / bản sao / bản điện tử)",
+   "chi_tiet": "Điều 28.4 NĐ 207: hồ sơ hoàn thành lưu bằng bản gốc và bản sao điện tử.",
+   "dong": [],
+   "muc_pl": null,
+   "de_xuat": "Thêm cột 'Tình trạng' và 'Số trang/Quyển số' để người nhận biết hồ sơ nằm ở đâu.",
+   "stt": 21
+  },
+  {
+   "muc_do": "info",
+   "ma_loi": "F16",
+   "tieu_de": "50 mã trong danh mục không có trong báo cáo đăng tải",
+   "chi_tiet": "HS.2026.74, HS.2026.82, HS.2025.3912, HS.2026.75, HS.2025.3914, HS.2026.71, HS.2025.4893, HS.2025.3928, HS.2025.3915, HS.2026.80, HS.2025.3913, HS.2025.3879, HS.2026.66, HS.2026.72, HS.2026.54",
+   "dong": [],
+   "muc_pl": null,
+   "de_xuat": "Cập nhật báo cáo đăng tải cho khớp.",
+   "stt": 22
+  }
+ ],
+ "cau_hoi": [
+  "Đề nghị bổ sung số, ngày QĐ phê duyệt dự án (hoặc BCKTKT) làm căn cứ.",
+  "Bổ sung số, ngày QĐ phê duyệt thiết kế (TKBVTC) và danh mục bản vẽ kèm theo.",
+  "Bổ sung biên bản nghiệm thu hoàn thành hạng mục/công trình (đủ thành phần ký theo Điều 24.6).",
+  "Bổ sung báo cáo hoàn thành công tác giám sát của TVGS theo Phụ lục IVb NĐ 207.",
+  "Bổ sung số, ngày Giấy phép xây dựng; nếu được miễn phép thì ghi rõ miễn theo trường hợp nào và dẫn tài liệu thể hiện việc miễn.",
+  "Bổ sung hoặc ghi rõ lý do không có.",
+  "Có thay đổi thiết kế trong thi công không? Nếu không có, danh mục phải ghi rõ 'Không có thay đổi'.",
+  "Bổ sung danh mục nghiệm thu vật liệu đầu vào kèm CO/CQ, hợp quy theo từng đợt.",
+  "Bổ sung danh mục kết quả thí nghiệm (số phiếu, ngày, đơn vị thí nghiệm) và đối chiếu với thiết kế.",
+  "Hạng mục có thiết bị lắp đặt không? Nếu có, bổ sung hồ sơ QLCL thiết bị (CO/CQ, chạy thử).",
+  "Quy trình bảo trì, quy trình vận hành do bên nào lập (thiết kế / nhà thầu cung cấp – lắp đặt thiết bị)? Đề nghị bổ sung hoặc cho biết nơi lưu.",
+  "Đã có biên bản nghiệm thu (nội bộ) hệ thống PCCC trước khi đưa công trình vào sử dụng chưa? Có văn bản của cơ quan có thẩm quyền về PCCC (nếu thuộc diện) không?",
+  "Bổ sung nhật ký thi công để đối chiếu ngày nghiệm thu.",
+  "Dẫn số, ngày các văn bản pháp lý dự án (hoặc ghi 'CĐT lưu tại …'); mục không phát sinh ghi 'Không có'.",
+  "Với mục không phát sinh, ghi dòng 'Không có' để chứng minh đã xem xét đủ danh mục.",
+  "Bổ sung thông tin còn thiếu.",
+  "Đưa các hồ sơ này vào đúng mục của danh mục hoặc giải thích lý do không đưa."
+ ],
+ "cau_hoi_muc": [
+  {
+   "code": "I",
+   "ten": "HỒ SƠ CHUẨN BỊ ĐẦU TƯ XÂY DỰNG VÀ HỢP ĐỒNG",
+   "trang_thai": "info",
+   "cau_hoi": [
+    "Nhà thầu đang nghiệm thu là tổng thầu / thầu chính hay thầu phụ? Hồ sơ pháp lý dự án và pháp lý nhà thầu cần kiểm tra kỹ khi là nhà thầu lớn, tổng thầu hoặc thầu chính thi công."
+   ]
+  },
+  {
+   "code": "I.1",
+   "ten": "Chủ trương đầu tư, BC nghiên cứu tiền khả thi",
+   "trang_thai": "mid",
+   "cau_hoi": [
+    "Chủ trương đầu tư đã đủ để xác minh cấp công trình và pháp lý dự án chưa?"
+   ]
+  },
+  {
+   "code": "I.3",
+   "ten": "Nhiệm vụ thiết kế, thẩm định dự án, TKCS",
+   "trang_thai": "mid",
+   "cau_hoi": [
+    "Nhiệm vụ thiết kế, văn bản thẩm định dự án / thiết kế cơ sở có khớp với hồ sơ thiết kế đang thi công không?"
+   ]
+  },
+  {
+   "code": "I.5",
+   "ten": "Thỏa thuận quy hoạch, đấu nối, ĐTM, an toàn",
+   "trang_thai": "mid",
+   "cau_hoi": [
+    "Với công trình giao thông, công trình lớn ảnh hưởng tới cộng đồng: đã có các văn bản về quy hoạch, đấu nối, ĐTM, an toàn giao thông, an toàn công trình lân cận chưa?"
+   ]
+  },
+  {
+   "code": "I.7",
+   "ten": "Giấy phép xây dựng",
+   "trang_thai": "mid",
+   "cau_hoi": [
+    "Có Giấy phép xây dựng không? Nếu được miễn thì miễn theo trường hợp nào, có tài liệu thể hiện không?"
+   ]
+  },
+  {
+   "code": "I.8",
+   "ten": "Lựa chọn nhà thầu, hợp đồng CĐT – nhà thầu",
+   "trang_thai": "ok",
+   "cau_hoi": [
+    "Hợp đồng trong danh mục là hợp đồng thầu chính hay thầu phụ? Nếu chỉ có hợp đồng thầu phụ, đề nghị bổ sung hợp đồng tổng thầu / hợp đồng thầu chính với chủ đầu tư."
+   ]
+  },
+  {
+   "code": "I.9",
+   "ten": "Năng lực nhà thầu",
+   "trang_thai": "mid",
+   "cau_hoi": [
+    "Đã có tối thiểu: hồ sơ năng lực (kinh nghiệm đã thực hiện), sơ đồ tổ chức, sơ đồ nhân sự, danh sách máy móc thiết bị chưa?",
+    "Năng lực tài chính của nhà thầu có bảo đảm cho phần việc được giao không?"
+   ]
+  },
+  {
+   "code": "II.1",
+   "ten": "Nhiệm vụ, phương án, báo cáo khảo sát",
+   "trang_thai": "mid",
+   "cau_hoi": [
+    "(Gói tư vấn khảo sát / giám sát khảo sát) Nhiệm vụ khảo sát, phương án kỹ thuật khảo sát đã được CĐT phê duyệt chưa?"
+   ]
+  },
+  {
+   "code": "II.2",
+   "ten": "Phê duyệt báo cáo kết quả khảo sát",
+   "trang_thai": "mid",
+   "cau_hoi": [
+    "Báo cáo kết quả khảo sát đã được chủ đầu tư phê duyệt (chấp thuận) chưa, bằng văn bản nào?"
+   ]
+  },
+  {
+   "code": "II.3",
+   "ten": "Thẩm tra, thẩm định, QĐ phê duyệt thiết kế + danh mục bản vẽ, chỉ dẫn kỹ thuật",
+   "trang_thai": "high",
+   "cau_hoi": [
+    "Thiết kế triển khai đã qua đủ các bước thẩm tra, thẩm định, phê duyệt chưa? Có danh mục bản vẽ và chỉ dẫn kỹ thuật kèm theo không?"
+   ]
+  },
+  {
+   "code": "II.4",
+   "ten": "Thông báo chấp thuận nghiệm thu thiết kế",
+   "trang_thai": "info",
+   "cau_hoi": [
+    "Đã có văn bản chấp thuận nghiệm thu thiết kế chưa?"
+   ]
+  },
+  {
+   "code": "III",
+   "ten": "HỒ SƠ QUẢN LÝ THI CÔNG XÂY DỰNG CÔNG TRÌNH",
+   "trang_thai": "info",
+   "cau_hoi": [
+    "Phần quản lý thi công là trọng tâm: đánh giá kỹ hồ sơ chất lượng, công nghệ thi công và thiết bị của hạng mục."
+   ]
+  },
+  {
+   "code": "III.1",
+   "ten": "Danh mục thay đổi thiết kế + văn bản phê duyệt",
+   "trang_thai": "mid",
+   "cau_hoi": [
+    "Thay đổi thiết kế (nếu có) đã có văn bản thẩm định, phê duyệt chưa? Hồ sơ đã đăng tải VPĐT chưa, mã HS là bao nhiêu?"
+   ]
+  },
+  {
+   "code": "III.8",
+   "ten": "Hồ sơ QLCL thiết bị lắp đặt",
+   "trang_thai": "mid",
+   "cau_hoi": [
+    "Đã có hồ sơ lắp đặt thiết bị, biên bản chạy thử đơn động, chạy thử liên động chưa?"
+   ]
+  },
+  {
+   "code": "III.9",
+   "ten": "Quy trình vận hành, quy trình bảo trì",
+   "trang_thai": "mid",
+   "cau_hoi": [
+    "Quy trình vận hành, quy trình bảo trì do bên thiết kế lập hay nhà thầu cung cấp – lắp đặt thiết bị lập? Đã bàn giao cho CĐT chưa?"
+   ]
+  },
+  {
+   "code": "III.10b",
+   "ten": "PCCC: nghiệm thu hệ thống / văn bản của cơ quan có thẩm quyền",
+   "trang_thai": "mid",
+   "cau_hoi": [
+    "Đã có biên bản nghiệm thu nội bộ hệ thống PCCC trước khi đưa công trình vào sử dụng chưa?"
+   ]
+  },
+  {
+   "code": "III.10g",
+   "ten": "Hoàn thành hạ tầng kỹ thuật theo kế hoạch dự án",
+   "trang_thai": "info",
+   "cau_hoi": [
+    "(Dự án nhà ở để bán) Đã hoàn thành phần móng / hạ tầng kỹ thuật theo điều kiện được phép bán hàng chưa, có văn bản xác nhận chưa?"
+   ]
+  },
+  {
+   "code": "III.12",
+   "ten": "Phụ lục tồn tại cần khắc phục",
+   "trang_thai": "info",
+   "cau_hoi": [
+    "Khi nghiệm thu còn phần việc phải sửa chữa, khắc phục không? Nếu có, đã có biên bản xác nhận tồn tại và tài liệu chứng minh đã khắc phục chưa?"
+   ]
+  },
+  {
+   "code": "III.13",
+   "ten": "Biên bản nghiệm thu hoàn thành hạng mục / công trình",
+   "trang_thai": "high",
+   "cau_hoi": [
+    "Biên bản nghiệm thu hoàn thành đã theo đúng nội dung Điều 24.5 NĐ 207 chưa: có thời điểm tính bảo hành, thời gian bảo hành, đánh giá sự phù hợp về PCCC chưa?"
+   ]
+  }
+ ],
+ "warnings": [],
+ "items": [
+  {
+   "code": "I.1",
+   "ten": "Chủ trương đầu tư, BC nghiên cứu tiền khả thi",
+   "yeu_cau": "B",
+   "trang_thai": "mid",
+   "ket_luan": "Chưa thấy – nếu không có phải ghi rõ “Không có”",
+   "so_dong": 0,
+   "ma": [],
+   "dong": []
+  },
+  {
+   "code": "I.2",
+   "ten": "QĐ phê duyệt dự án, BCNCKT / BCKTKT",
+   "yeu_cau": "B",
+   "trang_thai": "high",
+   "ket_luan": "Chưa thấy trong danh mục",
+   "so_dong": 0,
+   "ma": [],
+   "dong": []
+  },
+  {
+   "code": "I.3",
+   "ten": "Nhiệm vụ thiết kế, thẩm định dự án, TKCS",
+   "yeu_cau": "B",
+   "trang_thai": "mid",
+   "ket_luan": "Chưa thấy trong danh mục",
+   "so_dong": 0,
+   "ma": [],
+   "dong": []
+  },
+  {
+   "code": "I.4",
+   "ten": "Phương án đền bù GPMB, tái định cư",
+   "yeu_cau": "Đ",
+   "trang_thai": "info",
+   "ket_luan": "Không thấy (đối chiếu nếu có)",
+   "so_dong": 0,
+   "ma": [],
+   "dong": []
+  },
+  {
+   "code": "I.5",
+   "ten": "Thỏa thuận quy hoạch, đấu nối, ĐTM, an toàn",
+   "yeu_cau": "B",
+   "trang_thai": "mid",
+   "ket_luan": "Chưa thấy – nếu không có phải ghi rõ “Không có”",
+   "so_dong": 0,
+   "ma": [],
+   "dong": []
+  },
+  {
+   "code": "I.6",
+   "ten": "Giao đất, cho thuê đất",
+   "yeu_cau": "B",
+   "trang_thai": "mid",
+   "ket_luan": "Chưa thấy trong danh mục",
+   "so_dong": 0,
+   "ma": [],
+   "dong": []
+  },
+  {
+   "code": "I.7",
+   "ten": "Giấy phép xây dựng",
+   "yeu_cau": "B",
+   "trang_thai": "mid",
+   "ket_luan": "Chưa thấy trong danh mục",
+   "so_dong": 0,
+   "ma": [],
+   "dong": []
+  },
+  {
+   "code": "I.8",
+   "ten": "Lựa chọn nhà thầu, hợp đồng CĐT – nhà thầu",
+   "yeu_cau": "B",
+   "trang_thai": "ok",
+   "ket_luan": "Có",
+   "so_dong": 7,
+   "ma": [
+    "HS.2025.3910",
+    "HS.2025.3911",
+    "HS.2025.3912",
+    "HS.2025.3915",
+    "HS.2025.3916",
+    "HS.2025.3917"
+   ],
+   "dong": [
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+   ]
+  },
+  {
+   "code": "I.9",
+   "ten": "Năng lực nhà thầu",
+   "yeu_cau": "B",
+   "trang_thai": "mid",
+   "ket_luan": "Chưa thấy trong danh mục",
+   "so_dong": 0,
+   "ma": [],
+   "dong": []
+  },
+  {
+   "code": "I.10",
+   "ten": "Hồ sơ khác giai đoạn chuẩn bị đầu tư",
+   "yeu_cau": "Đ",
+   "trang_thai": "info",
+   "ket_luan": "Không thấy (đối chiếu nếu có)",
+   "so_dong": 0,
+   "ma": [],
+   "dong": []
+  },
+  {
+   "code": "II.1",
+   "ten": "Nhiệm vụ, phương án, báo cáo khảo sát",
+   "yeu_cau": "B",
+   "trang_thai": "mid",
+   "ket_luan": "Chưa thấy trong danh mục",
+   "so_dong": 0,
+   "ma": [],
+   "dong": []
+  },
+  {
+   "code": "II.2",
+   "ten": "Phê duyệt báo cáo kết quả khảo sát",
+   "yeu_cau": "B",
+   "trang_thai": "mid",
+   "ket_luan": "Chưa thấy trong danh mục",
+   "so_dong": 0,
+   "ma": [],
+   "dong": []
+  },
+  {
+   "code": "II.3",
+   "ten": "Thẩm tra, thẩm định, QĐ phê duyệt thiết kế + danh mục bản vẽ, chỉ dẫn kỹ thuật",
+   "yeu_cau": "B",
+   "trang_thai": "high",
+   "ket_luan": "Chưa thấy trong danh mục",
+   "so_dong": 0,
+   "ma": [],
+   "dong": []
+  },
+  {
+   "code": "II.4",
+   "ten": "Thông báo chấp thuận nghiệm thu thiết kế",
+   "yeu_cau": "Đ",
+   "trang_thai": "info",
+   "ket_luan": "Không thấy (đối chiếu nếu có)",
+   "so_dong": 0,
+   "ma": [],
+   "dong": []
+  },
+  {
+   "code": "II.5",
+   "ten": "Hồ sơ khác giai đoạn khảo sát, thiết kế",
+   "yeu_cau": "Đ",
+   "trang_thai": "info",
+   "ket_luan": "Không thấy (đối chiếu nếu có)",
+   "so_dong": 0,
+   "ma": [],
+   "dong": []
+  },
+  {
+   "code": "III.1",
+   "ten": "Danh mục thay đổi thiết kế + văn bản phê duyệt",
+   "yeu_cau": "B",
+   "trang_thai": "mid",
+   "ket_luan": "Chưa thấy trong danh mục",
+   "so_dong": 0,
+   "ma": [],
+   "dong": []
+  },
+  {
+   "code": "III.2",
+   "ten": "Bản vẽ hoàn công (có danh mục bản vẽ)",
+   "yeu_cau": "B",
+   "trang_thai": "ok",
+   "ket_luan": "Có",
+   "so_dong": 23,
+   "ma": [
+    "HS.2025.4893",
+    "HS.2025.4902",
+    "HS.2026.71",
+    "HS.2026.72",
+    "HS.2026.73",
+    "HS.2026.74",
+    "HS.2026.75",
+    "HS.2026.76",
+    "HS.2026.77",
+    "HS.2026.78",
+    "HS.2026.79",
+    "HS.2026.80",
+    "HS.2026.81",
+    "HS.2026.82",
+    "HS.2026.83",
+    "HS.2026.84",
+    "HS.2026.85",
+    "HS.2026.86",
+    "HS.2026.87"
+   ],
+   "dong": [
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57,
+    58,
+    59,
+    60,
+    61,
+    62,
+    63
+   ]
+  },
+  {
+   "code": "III.3",
+   "ten": "Kế hoạch, biện pháp kiểm soát chất lượng",
+   "yeu_cau": "B",
+   "trang_thai": "mid",
+   "ket_luan": "Có – chưa ghi số/ngày văn bản phê duyệt/chấp thuận",
+   "so_dong": 4,
+   "ma": [
+    "HS.2025.3913",
+    "HS.2025.3914",
+    "HS.2025.3928"
+   ],
+   "dong": [
+    9,
+    10,
+    11,
+    12
+   ]
+  },
+  {
+   "code": "III.4",
+   "ten": "Xuất xứ, hợp quy, hợp chuẩn vật liệu – sản phẩm",
+   "yeu_cau": "B",
+   "trang_thai": "mid",
+   "ket_luan": "Chưa thấy trong danh mục",
+   "so_dong": 0,
+   "ma": [],
+   "dong": []
+  },
+  {
+   "code": "III.5",
+   "ten": "Kết quả quan trắc, đo đạc, thí nghiệm",
+   "yeu_cau": "B",
+   "trang_thai": "mid",
+   "ket_luan": "Chưa thấy trong danh mục",
+   "so_dong": 0,
+   "ma": [],
+   "dong": []
+  },
+  {
+   "code": "III.6",
+   "ten": "Biên bản nghiệm thu công việc, bộ phận, giai đoạn",
+   "yeu_cau": "B",
+   "trang_thai": "ok",
+   "ket_luan": "Có",
+   "so_dong": 22,
+   "ma": [
+    "HS.2025.3858",
+    "HS.2025.3859",
+    "HS.2025.3860",
+    "HS.2025.3861",
+    "HS.2025.3863",
+    "HS.2025.3864",
+    "HS.2025.3865",
+    "HS.2025.3866",
+    "HS.2025.3879",
+    "HS.2025.3880",
+    "HS.2025.3881",
+    "HS.2025.4053",
+    "HS.2025.4891",
+    "HS.2025.4903",
+    "HS.2026.53",
+    "HS.2026.54",
+    "HS.2026.65",
+    "HS.2026.66",
+    "HS.2026.67",
+    "HS.2026.68",
+    "HS.2026.69",
+    "HS.2026.70"
+   ],
+   "dong": [
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    37,
+    38,
+    40
+   ]
+  },
+  {
+   "code": "III.7",
+   "ten": "Thí nghiệm đối chứng, kiểm định, thử tải",
+   "yeu_cau": "Đ",
+   "trang_thai": "info",
+   "ket_luan": "Không thấy (đối chiếu nếu có)",
+   "so_dong": 0,
+   "ma": [],
+   "dong": []
+  },
+  {
+   "code": "III.8",
+   "ten": "Hồ sơ QLCL thiết bị lắp đặt",
+   "yeu_cau": "B",
+   "trang_thai": "mid",
+   "ket_luan": "Chưa thấy trong danh mục",
+   "so_dong": 0,
+   "ma": [],
+   "dong": []
+  },
+  {
+   "code": "III.9",
+   "ten": "Quy trình vận hành, quy trình bảo trì",
+   "yeu_cau": "B",
+   "trang_thai": "mid",
+   "ket_luan": "Chưa thấy trong danh mục",
+   "so_dong": 0,
+   "ma": [],
+   "dong": []
+  },
+  {
+   "code": "III.10a",
+   "ten": "Di dân lòng hồ, di tích lịch sử – văn hóa",
+   "yeu_cau": "Đ",
+   "trang_thai": "info",
+   "ket_luan": "Không thấy (đối chiếu nếu có)",
+   "so_dong": 0,
+   "ma": [],
+   "dong": []
+  },
+  {
+   "code": "III.10b",
+   "ten": "PCCC: nghiệm thu hệ thống / văn bản của cơ quan có thẩm quyền",
+   "yeu_cau": "B",
+   "trang_thai": "mid",
+   "ket_luan": "Chưa thấy – nếu không có phải ghi rõ “Không có”",
+   "so_dong": 0,
+   "ma": [],
+   "dong": []
+  },
+  {
+   "code": "III.10c",
+   "ten": "Chấp thuận về an toàn môi trường",
+   "yeu_cau": "B",
+   "trang_thai": "mid",
+   "ket_luan": "Chưa thấy – nếu không có phải ghi rõ “Không có”",
+   "so_dong": 0,
+   "ma": [],
+   "dong": []
+  },
+  {
+   "code": "III.10d",
+   "ten": "An toàn lao động, an toàn vận hành thiết bị (kiểm định)",
+   "yeu_cau": "B",
+   "trang_thai": "mid",
+   "ket_luan": "Chưa thấy – nếu không có phải ghi rõ “Không có”",
+   "so_dong": 0,
+   "ma": [],
+   "dong": []
+  },
+  {
+   "code": "III.10đ",
+   "ten": "Thực hiện giấy phép xây dựng",
+   "yeu_cau": "Đ",
+   "trang_thai": "info",
+   "ket_luan": "Không thấy (đối chiếu nếu có)",
+   "so_dong": 0,
+   "ma": [],
+   "dong": []
+  },
+  {
+   "code": "III.10e",
+   "ten": "Cho phép đấu nối hạ tầng kỹ thuật",
+   "yeu_cau": "B",
+   "trang_thai": "mid",
+   "ket_luan": "Chưa thấy – nếu không có phải ghi rõ “Không có”",
+   "so_dong": 0,
+   "ma": [],
+   "dong": []
+  },
+  {
+   "code": "III.10g",
+   "ten": "Hoàn thành hạ tầng kỹ thuật theo kế hoạch dự án",
+   "yeu_cau": "Đ",
+   "trang_thai": "info",
+   "ket_luan": "Không thấy (đối chiếu nếu có)",
+   "so_dong": 0,
+   "ma": [],
+   "dong": []
+  },
+  {
+   "code": "III.10h",
+   "ten": "Văn bản khác theo pháp luật chuyên ngành",
+   "yeu_cau": "Đ",
+   "trang_thai": "info",
+   "ket_luan": "Không thấy (đối chiếu nếu có)",
+   "so_dong": 0,
+   "ma": [],
+   "dong": []
+  },
+  {
+   "code": "III.11",
+   "ten": "Hồ sơ giải quyết sự cố",
+   "yeu_cau": "Đ",
+   "trang_thai": "info",
+   "ket_luan": "Không thấy (đối chiếu nếu có)",
+   "so_dong": 0,
+   "ma": [],
+   "dong": []
+  },
+  {
+   "code": "III.12",
+   "ten": "Phụ lục tồn tại cần khắc phục",
+   "yeu_cau": "Đ",
+   "trang_thai": "info",
+   "ket_luan": "Không thấy (đối chiếu nếu có)",
+   "so_dong": 0,
+   "ma": [],
+   "dong": []
+  },
+  {
+   "code": "III.13",
+   "ten": "Biên bản nghiệm thu hoàn thành hạng mục / công trình",
+   "yeu_cau": "B",
+   "trang_thai": "high",
+   "ket_luan": "Chưa thấy trong danh mục",
+   "so_dong": 0,
+   "ma": [],
+   "dong": []
+  },
+  {
+   "code": "III.14",
+   "ten": "Thông báo của cơ quan có thẩm quyền (khoản 4 Điều 57 Luật XD 135/2025)",
+   "yeu_cau": "Đ",
+   "trang_thai": "info",
+   "ket_luan": "Không thấy (đối chiếu nếu có)",
+   "so_dong": 0,
+   "ma": [],
+   "dong": []
+  },
+  {
+   "code": "III.15",
+   "ten": "Hồ sơ kiểm tra công tác nghiệm thu",
+   "yeu_cau": "Đ",
+   "trang_thai": "info",
+   "ket_luan": "Không thấy (đối chiếu nếu có)",
+   "so_dong": 0,
+   "ma": [],
+   "dong": []
+  },
+  {
+   "code": "III.16",
+   "ten": "Hồ sơ khác giai đoạn thi công và nghiệm thu",
+   "yeu_cau": "Đ",
+   "trang_thai": "info",
+   "ket_luan": "Không thấy (đối chiếu nếu có)",
+   "so_dong": 0,
+   "ma": [],
+   "dong": []
+  },
+  {
+   "code": "T.1",
+   "ten": "Báo cáo hoàn thành công tác giám sát (Phụ lục IVb)",
+   "yeu_cau": "B",
+   "trang_thai": "high",
+   "ket_luan": "Chưa thấy trong danh mục",
+   "so_dong": 0,
+   "ma": [],
+   "dong": []
+  },
+  {
+   "code": "T.2",
+   "ten": "Báo cáo hoàn thành của nhà thầu thi công",
+   "yeu_cau": "Đ",
+   "trang_thai": "info",
+   "ket_luan": "Không thấy (đối chiếu nếu có)",
+   "so_dong": 0,
+   "ma": [],
+   "dong": []
+  },
+  {
+   "code": "T.3",
+   "ten": "Nhật ký thi công xây dựng",
+   "yeu_cau": "B",
+   "trang_thai": "mid",
+   "ket_luan": "Chưa thấy trong danh mục",
+   "so_dong": 0,
+   "ma": [],
+   "dong": []
+  },
+  {
+   "code": "T.9",
+   "ten": "Hồ sơ thanh toán, quyết toán, khối lượng (ngoài PL VII)",
+   "yeu_cau": "-",
+   "trang_thai": "na",
+   "ket_luan": "Không xét",
+   "so_dong": 0,
+   "ma": [],
+   "dong": []
+  }
+ ],
+ "ma_map": {
+  "HS.2025.3912": {
+   "dong": [
+    3
+   ],
+   "dong_ke_thua": [],
+   "muc": [
+    "I.8"
+   ],
+   "gom": false
+  },
+  "HS.2025.3910": {
+   "dong": [
+    4
+   ],
+   "dong_ke_thua": [],
+   "muc": [
+    "I.8"
+   ],
+   "gom": false
+  },
+  "HS.2025.3911": {
+   "dong": [
+    5
+   ],
+   "dong_ke_thua": [],
+   "muc": [
+    "I.8"
+   ],
+   "gom": false
+  },
+  "HS.2025.3915": {
+   "dong": [
+    6
+   ],
+   "dong_ke_thua": [],
+   "muc": [
+    "I.8"
+   ],
+   "gom": false
+  },
+  "HS.2025.3916": {
+   "dong": [
+    7
+   ],
+   "dong_ke_thua": [],
+   "muc": [
+    "I.8"
+   ],
+   "gom": false
+  },
+  "HS.2025.3917": {
+   "dong": [
+    8
+   ],
+   "dong_ke_thua": [],
+   "muc": [
+    "I.8"
+   ],
+   "gom": false
+  },
+  "HS.2025.3928": {
+   "dong": [
+    10
+   ],
+   "dong_ke_thua": [],
+   "muc": [
+    "III.3"
+   ],
+   "gom": false
+  },
+  "HS.2025.3913": {
+   "dong": [
+    11
+   ],
+   "dong_ke_thua": [],
+   "muc": [
+    "III.3"
+   ],
+   "gom": false
+  },
+  "HS.2025.3914": {
+   "dong": [
+    12
+   ],
+   "dong_ke_thua": [],
+   "muc": [
+    "III.3"
+   ],
+   "gom": false
+  },
+  "HS.2025.3863": {
+   "dong": [
+    15
+   ],
+   "dong_ke_thua": [],
+   "muc": [
+    "III.6"
+   ],
+   "gom": false
+  },
+  "HS.2025.3864": {
+   "dong": [
+    16
+   ],
+   "dong_ke_thua": [],
+   "muc": [
+    "III.6"
+   ],
+   "gom": false
+  },
+  "HS.2025.3865": {
+   "dong": [
+    17
+   ],
+   "dong_ke_thua": [],
+   "muc": [
+    "III.6"
+   ],
+   "gom": false
+  },
+  "HS.2025.3866": {
+   "dong": [
+    18
+   ],
+   "dong_ke_thua": [],
+   "muc": [
+    "III.6"
+   ],
+   "gom": false
+  },
+  "HS.2025.4053": {
+   "dong": [
+    19
+   ],
+   "dong_ke_thua": [],
+   "muc": [
+    "III.6"
+   ],
+   "gom": false
+  },
+  "HS.2026.65": {
+   "dong": [
+    20
+   ],
+   "dong_ke_thua": [],
+   "muc": [
+    "III.6"
+   ],
+   "gom": false
+  },
+  "HS.2025.4891": {
+   "dong": [
+    21
+   ],
+   "dong_ke_thua": [],
+   "muc": [
+    "III.6"
+   ],
+   "gom": false
+  },
+  "HS.2025.3879": {
+   "dong": [
+    23
+   ],
+   "dong_ke_thua": [],
+   "muc": [
+    "III.6"
+   ],
+   "gom": false
+  },
+  "HS.2025.3880": {
+   "dong": [
+    24
+   ],
+   "dong_ke_thua": [],
+   "muc": [
+    "III.6"
+   ],
+   "gom": false
+  },
+  "HS.2025.3881": {
+   "dong": [
+    25
+   ],
+   "dong_ke_thua": [],
+   "muc": [
+    "III.6"
+   ],
+   "gom": false
+  },
+  "HS.2026.67": {
+   "dong": [
+    26
+   ],
+   "dong_ke_thua": [],
+   "muc": [
+    "III.6"
+   ],
+   "gom": false
+  },
+  "HS.2026.66": {
+   "dong": [
+    27
+   ],
+   "dong_ke_thua": [],
+   "muc": [
+    "III.6"
+   ],
+   "gom": false
+  },
+  "HS.2025.4903": {
+   "dong": [
+    28
+   ],
+   "dong_ke_thua": [],
+   "muc": [
+    "III.6"
+   ],
+   "gom": false
+  },
+  "HS.2025.3858": {
+   "dong": [
+    30
+   ],
+   "dong_ke_thua": [],
+   "muc": [
+    "III.6"
+   ],
+   "gom": false
+  },
+  "HS.2025.3859": {
+   "dong": [
+    31
+   ],
+   "dong_ke_thua": [],
+   "muc": [
+    "III.6"
+   ],
+   "gom": false
+  },
+  "HS.2025.3860": {
+   "dong": [
+    32
+   ],
+   "dong_ke_thua": [],
+   "muc": [
+    "III.6"
+   ],
+   "gom": false
+  },
+  "HS.2025.3861": {
+   "dong": [
+    33
+   ],
+   "dong_ke_thua": [],
+   "muc": [
+    "III.6"
+   ],
+   "gom": false
+  },
+  "HS.2026.68": {
+   "dong": [
+    34
+   ],
+   "dong_ke_thua": [],
+   "muc": [
+    "III.6"
+   ],
+   "gom": false
+  },
+  "HS.2026.69": {
+   "dong": [
+    35
+   ],
+   "dong_ke_thua": [],
+   "muc": [
+    "III.6"
+   ],
+   "gom": false
+  },
+  "HS.2026.53": {
+   "dong": [
+    37
+   ],
+   "dong_ke_thua": [],
+   "muc": [
+    "III.6"
+   ],
+   "gom": false
+  },
+  "HS.2026.54": {
+   "dong": [
+    38
+   ],
+   "dong_ke_thua": [],
+   "muc": [
+    "III.6"
+   ],
+   "gom": false
+  },
+  "HS.2026.70": {
+   "dong": [
+    40
+   ],
+   "dong_ke_thua": [],
+   "muc": [
+    "III.6"
+   ],
+   "gom": false
+  },
+  "HS.2026.71": {
+   "dong": [
+    43
+   ],
+   "dong_ke_thua": [],
+   "muc": [
+    "III.2"
+   ],
+   "gom": false
+  },
+  "HS.2026.72": {
+   "dong": [
+    44
+   ],
+   "dong_ke_thua": [],
+   "muc": [
+    "III.2"
+   ],
+   "gom": false
+  },
+  "HS.2026.73": {
+   "dong": [
+    45
+   ],
+   "dong_ke_thua": [],
+   "muc": [
+    "III.2"
+   ],
+   "gom": false
+  },
+  "HS.2026.74": {
+   "dong": [
+    46
+   ],
+   "dong_ke_thua": [],
+   "muc": [
+    "III.2"
+   ],
+   "gom": false
+  },
+  "HS.2026.75": {
+   "dong": [
+    47
+   ],
+   "dong_ke_thua": [],
+   "muc": [
+    "III.2"
+   ],
+   "gom": false
+  },
+  "HS.2026.76": {
+   "dong": [
+    48
+   ],
+   "dong_ke_thua": [],
+   "muc": [
+    "III.2"
+   ],
+   "gom": false
+  },
+  "HS.2025.4893": {
+   "dong": [
+    49
+   ],
+   "dong_ke_thua": [],
+   "muc": [
+    "III.2"
+   ],
+   "gom": false
+  },
+  "HS.2026.77": {
+   "dong": [
+    51
+   ],
+   "dong_ke_thua": [],
+   "muc": [
+    "III.2"
+   ],
+   "gom": false
+  },
+  "HS.2026.78": {
+   "dong": [
+    52
+   ],
+   "dong_ke_thua": [],
+   "muc": [
+    "III.2"
+   ],
+   "gom": false
+  },
+  "HS.2026.86": {
+   "dong": [
+    53
+   ],
+   "dong_ke_thua": [],
+   "muc": [
+    "III.2"
+   ],
+   "gom": false
+  },
+  "HS.2026.87": {
+   "dong": [
+    54
+   ],
+   "dong_ke_thua": [],
+   "muc": [
+    "III.2"
+   ],
+   "gom": false
+  },
+  "HS.2026.85": {
+   "dong": [
+    55
+   ],
+   "dong_ke_thua": [],
+   "muc": [
+    "III.2"
+   ],
+   "gom": false
+  },
+  "HS.2025.4902": {
+   "dong": [
+    56
+   ],
+   "dong_ke_thua": [],
+   "muc": [
+    "III.2"
+   ],
+   "gom": false
+  },
+  "HS.2026.79": {
+   "dong": [
+    58
+   ],
+   "dong_ke_thua": [],
+   "muc": [
+    "III.2"
+   ],
+   "gom": false
+  },
+  "HS.2026.80": {
+   "dong": [
+    59
+   ],
+   "dong_ke_thua": [],
+   "muc": [
+    "III.2"
+   ],
+   "gom": false
+  },
+  "HS.2026.81": {
+   "dong": [
+    60
+   ],
+   "dong_ke_thua": [],
+   "muc": [
+    "III.2"
+   ],
+   "gom": false
+  },
+  "HS.2026.82": {
+   "dong": [
+    61
+   ],
+   "dong_ke_thua": [],
+   "muc": [
+    "III.2"
+   ],
+   "gom": false
+  },
+  "HS.2026.83": {
+   "dong": [
+    62
+   ],
+   "dong_ke_thua": [],
+   "muc": [
+    "III.2"
+   ],
+   "gom": false
+  },
+  "HS.2026.84": {
+   "dong": [
+    63
+   ],
+   "dong_ke_thua": [],
+   "muc": [
+    "III.2"
+   ],
+   "gom": false
+  }
+ },
+ "rows": [
+  {
+   "id": 1,
+   "cap": 0,
+   "cha": null,
+   "stt": "I",
+   "noi_dung": "HỒ SƠ PHÁP LÝ",
+   "so_vb": "",
+   "ngay_raw": "",
+   "don_vi": "",
+   "ma": [],
+   "ma_ke_thua": [],
+   "muc": null,
+   "muc_nguon": null,
+   "tinh_trang": ""
+  },
+  {
+   "id": 2,
+   "cap": 1,
+   "cha": 1,
+   "stt": "1",
+   "noi_dung": "Hợp đồng giữa Chủ đầu tư và các nhà thầu thi công",
+   "so_vb": "",
+   "ngay_raw": "",
+   "don_vi": "",
+   "ma": [],
+   "ma_ke_thua": [],
+   "muc": "I.8",
+   "muc_nguon": "tu_khoa",
+   "tinh_trang": ""
+  },
+  {
+   "id": 3,
+   "cap": 2,
+   "cha": 2,
+   "stt": "1.1",
+   "noi_dung": "Hợp đồng thi công xây dựng gói thầu: Xây dựng thô và hoàn thiện mặt ngoài 36 căn nhà tầng thuộc các lô LK39, LK40.",
+   "so_vb": "14/2025/HĐXD/UNS-TTSC",
+   "ngay_raw": "25/03/2025",
+   "don_vi": "Công ty Cổ phần UNION SUCCESS Việt Nam",
+   "ma": [
+    "HS.2025.3912"
+   ],
+   "ma_ke_thua": [],
+   "muc": "I.8",
+   "muc_nguon": "tu_khoa",
+   "tinh_trang": ""
+  },
+  {
+   "id": 4,
+   "cap": 2,
+   "cha": 2,
+   "stt": "",
+   "noi_dung": "Hợp đồng thi công xây dựng gói thầu: Xây dựng thô và hoàn thiện mặt ngoài 233 căn hộ tầng thấp thuộc các lô LK26, LK30 đến LK36, LK41 đến 43",
+   "so_vb": "15/2025/HĐXD/UNS-CDC",
+   "ngay_raw": "25/03/2025",
+   "don_vi": "Công ty Cổ phần UNION SUCCESS Việt Nam",
+   "ma": [
+    "HS.2025.3910"
+   ],
+   "ma_ke_thua": [],
+   "muc": "I.8",
+   "muc_nguon": "tu_khoa",
+   "tinh_trang": ""
+  },
+  {
+   "id": 5,
+   "cap": 2,
+   "cha": 2,
+   "stt": "",
+   "noi_dung": "Hợp đồng thi công xây dựng gói thầu: Xây dựng thô và hoàn thiện mặt ngoài 83 căn nhà tầng thuộc các lô LK27, LK28, LK29, LK37, LK38",
+   "so_vb": "13/2025/HĐXD/UNS-ĐH",
+   "ngay_raw": "25/03/2025",
+   "don_vi": "Công ty Cổ phần UNION SUCCESS Việt Nam",
+   "ma": [
+    "HS.2025.3911"
+   ],
+   "ma_ke_thua": [],
+   "muc": "I.8",
+   "muc_nguon": "tu_khoa",
+   "tinh_trang": ""
+  },
+  {
+   "id": 6,
+   "cap": 2,
+   "cha": 2,
+   "stt": "",
+   "noi_dung": "Hợp đồng cung cấp lắp đặt hạng mục: Cửa nhôm kính từ lô LK33 đến lô LK42, cửa cuốn và cửa thép từ lô LK26 đến lô LK43",
+   "so_vb": "25/2025/HĐXD/UNS-HPQ",
+   "ngay_raw": "07/04/2025",
+   "don_vi": "Công ty Cổ phần UNION SUCCESS Việt Nam",
+   "ma": [
+    "HS.2025.3915"
+   ],
+   "ma_ke_thua": [],
+   "muc": "I.8",
+   "muc_nguon": "tu_khoa",
+   "tinh_trang": ""
+  },
+  {
+   "id": 7,
+   "cap": 2,
+   "cha": 2,
+   "stt": "",
+   "noi_dung": "Hợp đồng cung cấp, lắp đặt hạng mục: Cửa nhôm kính từ lô LK26 đến lô LK32 và lô LK43 (không bao gồm cửa cuốn, cửa thép)",
+   "so_vb": "24/2025/HĐXD/UNS-VH",
+   "ngay_raw": "07/04/2025",
+   "don_vi": "Công ty Cổ phần UNION SUCCESS Việt Nam",
+   "ma": [
+    "HS.2025.3916"
+   ],
+   "ma_ke_thua": [],
+   "muc": "I.8",
+   "muc_nguon": "tu_khoa",
+   "tinh_trang": ""
+  },
+  {
+   "id": 8,
+   "cap": 2,
+   "cha": 2,
+   "stt": "",
+   "noi_dung": "Hợp đồng thi công xây dựng gói thầu: Cung cấp và lắp đặt lan can 352 tầng căn hộ - Giai đoạn I",
+   "so_vb": "26/2025/HĐXD/UNS-MN",
+   "ngay_raw": "07/01/2025",
+   "don_vi": "Công ty Cổ phần UNION SUCCESS Việt Nam",
+   "ma": [
+    "HS.2025.3917"
+   ],
+   "ma_ke_thua": [],
+   "muc": "I.8",
+   "muc_nguon": "tu_khoa",
+   "tinh_trang": ""
+  },
+  {
+   "id": 9,
+   "cap": 1,
+   "cha": 1,
+   "stt": "2",
+   "noi_dung": "Biện pháp thi công, tiến độ thi công của các nhà thầu",
+   "so_vb": "",
+   "ngay_raw": "",
+   "don_vi": "",
+   "ma": [],
+   "ma_ke_thua": [],
+   "muc": "III.3",
+   "muc_nguon": "tu_khoa",
+   "tinh_trang": ""
+  },
+  {
+   "id": 10,
+   "cap": 2,
+   "cha": 9,
+   "stt": "",
+   "noi_dung": "Biện pháp thi công gói thầu: Xây dựng thô và hoàn thiện mặt ngoài 36 căn nhà tầng thuộc các lô LK39, LK40.",
+   "so_vb": "",
+   "ngay_raw": "",
+   "don_vi": "Công ty Cổ phần T.T.S.C",
+   "ma": [
+    "HS.2025.3928"
+   ],
+   "ma_ke_thua": [],
+   "muc": "III.3",
+   "muc_nguon": "tu_khoa",
+   "tinh_trang": ""
+  },
+  {
+   "id": 11,
+   "cap": 2,
+   "cha": 9,
+   "stt": "",
+   "noi_dung": "Biện pháp thi công gói thầu: Xây dựng thô và hoàn thiện mặt ngoài 233 căn hộ tầng thấp thuộc các lô LK26, LK30 đến LK36, LK41 đến 43",
+   "so_vb": "",
+   "ngay_raw": "",
+   "don_vi": "Công ty Cổ phần xây dựng CDC",
+   "ma": [
+    "HS.2025.3913"
+   ],
+   "ma_ke_thua": [],
+   "muc": "III.3",
+   "muc_nguon": "tu_khoa",
+   "tinh_trang": ""
+  },
+  {
+   "id": 12,
+   "cap": 2,
+   "cha": 9,
+   "stt": "",
+   "noi_dung": "Biện pháp thi công gói thầu: Xây dựng thô và hoàn thiện mặt ngoài 83 căn nhà tầng thuộc các lô LK27, LK28, LK29, LK37, LK38",
+   "so_vb": "",
+   "ngay_raw": "",
+   "don_vi": "Công ty TNHH Đầu tư xây dựng Đại Hảo",
+   "ma": [
+    "HS.2025.3914"
+   ],
+   "ma_ke_thua": [],
+   "muc": "III.3",
+   "muc_nguon": "tu_khoa",
+   "tinh_trang": ""
+  },
+  {
+   "id": 13,
+   "cap": 0,
+   "cha": null,
+   "stt": "II",
+   "noi_dung": "HỒ SƠ CHẤT LƯỢNG",
+   "so_vb": "",
+   "ngay_raw": "",
+   "don_vi": "",
+   "ma": [],
+   "ma_ke_thua": [],
+   "muc": null,
+   "muc_nguon": null,
+   "tinh_trang": ""
+  },
+  {
+   "id": 14,
+   "cap": 1,
+   "cha": 13,
+   "stt": "1",
+   "noi_dung": "Nhà thầu: Công ty Cổ phần T.T.S.C",
+   "so_vb": "",
+   "ngay_raw": "",
+   "don_vi": "",
+   "ma": [],
+   "ma_ke_thua": [],
+   "muc": null,
+   "muc_nguon": null,
+   "tinh_trang": ""
+  },
+  {
+   "id": 15,
+   "cap": 2,
+   "cha": 14,
+   "stt": "",
+   "noi_dung": "Hồ sơ chất lượng lần 1",
+   "so_vb": "",
+   "ngay_raw": "05/2025",
+   "don_vi": "",
+   "ma": [
+    "HS.2025.3863"
+   ],
+   "ma_ke_thua": [],
+   "muc": "III.6",
+   "muc_nguon": "tu_khoa",
+   "tinh_trang": ""
+  },
+  {
+   "id": 16,
+   "cap": 2,
+   "cha": 14,
+   "stt": "",
+   "noi_dung": "Hồ sơ chất lượng lần 2",
+   "so_vb": "",
+   "ngay_raw": "06/2025",
+   "don_vi": "",
+   "ma": [
+    "HS.2025.3864"
+   ],
+   "ma_ke_thua": [],
+   "muc": "III.6",
+   "muc_nguon": "tu_khoa",
+   "tinh_trang": ""
+  },
+  {
+   "id": 17,
+   "cap": 2,
+   "cha": 14,
+   "stt": "",
+   "noi_dung": "Hồ sơ chất lượng lần 3",
+   "so_vb": "",
+   "ngay_raw": "07/2025",
+   "don_vi": "",
+   "ma": [
+    "HS.2025.3865"
+   ],
+   "ma_ke_thua": [],
+   "muc": "III.6",
+   "muc_nguon": "tu_khoa",
+   "tinh_trang": ""
+  },
+  {
+   "id": 18,
+   "cap": 2,
+   "cha": 14,
+   "stt": "",
+   "noi_dung": "Hồ sơ chất lượng lần 4",
+   "so_vb": "",
+   "ngay_raw": "08/2025",
+   "don_vi": "",
+   "ma": [
+    "HS.2025.3866"
+   ],
+   "ma_ke_thua": [],
+   "muc": "III.6",
+   "muc_nguon": "tu_khoa",
+   "tinh_trang": ""
+  },
+  {
+   "id": 19,
+   "cap": 2,
+   "cha": 14,
+   "stt": "",
+   "noi_dung": "Hồ sơ chất lượng lần 5",
+   "so_vb": "",
+   "ngay_raw": "09/2025",
+   "don_vi": "",
+   "ma": [
+    "HS.2025.4053"
+   ],
+   "ma_ke_thua": [],
+   "muc": "III.6",
+   "muc_nguon": "tu_khoa",
+   "tinh_trang": ""
+  },
+  {
+   "id": 20,
+   "cap": 2,
+   "cha": 14,
+   "stt": "",
+   "noi_dung": "Hồ sơ chất lượng lần 6",
+   "so_vb": "",
+   "ngay_raw": "10/2025",
+   "don_vi": "",
+   "ma": [
+    "HS.2026.65"
+   ],
+   "ma_ke_thua": [],
+   "muc": "III.6",
+   "muc_nguon": "tu_khoa",
+   "tinh_trang": ""
+  },
+  {
+   "id": 21,
+   "cap": 2,
+   "cha": 14,
+   "stt": "",
+   "noi_dung": "Hồ sơ chất lượng lần 7",
+   "so_vb": "",
+   "ngay_raw": "11/2025",
+   "don_vi": "",
+   "ma": [
+    "HS.2025.4891"
+   ],
+   "ma_ke_thua": [],
+   "muc": "III.6",
+   "muc_nguon": "tu_khoa",
+   "tinh_trang": ""
+  },
+  {
+   "id": 22,
+   "cap": 1,
+   "cha": 13,
+   "stt": "1",
+   "noi_dung": "Nhà thầu: Công ty Cổ phần xây dựng CDC",
+   "so_vb": "",
+   "ngay_raw": "",
+   "don_vi": "",
+   "ma": [],
+   "ma_ke_thua": [],
+   "muc": null,
+   "muc_nguon": null,
+   "tinh_trang": ""
+  },
+  {
+   "id": 23,
+   "cap": 2,
+   "cha": 22,
+   "stt": "",
+   "noi_dung": "Hồ sơ chất lượng lần 1",
+   "so_vb": "",
+   "ngay_raw": "06/2025",
+   "don_vi": "",
+   "ma": [
+    "HS.2025.3879"
+   ],
+   "ma_ke_thua": [],
+   "muc": "III.6",
+   "muc_nguon": "tu_khoa",
+   "tinh_trang": ""
+  },
+  {
+   "id": 24,
+   "cap": 2,
+   "cha": 22,
+   "stt": "",
+   "noi_dung": "Hồ sơ chất lượng lần 2",
+   "so_vb": "",
+   "ngay_raw": "07/2025",
+   "don_vi": "",
+   "ma": [
+    "HS.2025.3880"
+   ],
+   "ma_ke_thua": [],
+   "muc": "III.6",
+   "muc_nguon": "tu_khoa",
+   "tinh_trang": ""
+  },
+  {
+   "id": 25,
+   "cap": 2,
+   "cha": 22,
+   "stt": "",
+   "noi_dung": "Hồ sơ chất lượng lần 3",
+   "so_vb": "",
+   "ngay_raw": "08/2025",
+   "don_vi": "",
+   "ma": [
+    "HS.2025.3881"
+   ],
+   "ma_ke_thua": [],
+   "muc": "III.6",
+   "muc_nguon": "tu_khoa",
+   "tinh_trang": ""
+  },
+  {
+   "id": 26,
+   "cap": 2,
+   "cha": 22,
+   "stt": "",
+   "noi_dung": "Hồ sơ chất lượng lần 4",
+   "so_vb": "",
+   "ngay_raw": "09/2025",
+   "don_vi": "",
+   "ma": [
+    "HS.2026.67"
+   ],
+   "ma_ke_thua": [],
+   "muc": "III.6",
+   "muc_nguon": "tu_khoa",
+   "tinh_trang": ""
+  },
+  {
+   "id": 27,
+   "cap": 2,
+   "cha": 22,
+   "stt": "",
+   "noi_dung": "Hồ sơ chất lượng lần 5",
+   "so_vb": "",
+   "ngay_raw": "10/2025",
+   "don_vi": "",
+   "ma": [
+    "HS.2026.66"
+   ],
+   "ma_ke_thua": [],
+   "muc": "III.6",
+   "muc_nguon": "tu_khoa",
+   "tinh_trang": ""
+  },
+  {
+   "id": 28,
+   "cap": 2,
+   "cha": 22,
+   "stt": "",
+   "noi_dung": "Hồ sơ chất lượng lần 6",
+   "so_vb": "",
+   "ngay_raw": "11/2025",
+   "don_vi": "",
+   "ma": [
+    "HS.2025.4903"
+   ],
+   "ma_ke_thua": [],
+   "muc": "III.6",
+   "muc_nguon": "tu_khoa",
+   "tinh_trang": ""
+  },
+  {
+   "id": 29,
+   "cap": 1,
+   "cha": 13,
+   "stt": "3",
+   "noi_dung": "Nhà thầu: Công ty TNHH Đầu tư xây dựng Đại Hảo",
+   "so_vb": "",
+   "ngay_raw": "",
+   "don_vi": "",
+   "ma": [],
+   "ma_ke_thua": [],
+   "muc": null,
+   "muc_nguon": null,
+   "tinh_trang": ""
+  },
+  {
+   "id": 30,
+   "cap": 2,
+   "cha": 29,
+   "stt": "",
+   "noi_dung": "Hồ sơ chất lượng lần 1",
+   "so_vb": "",
+   "ngay_raw": "05/2025",
+   "don_vi": "",
+   "ma": [
+    "HS.2025.3858"
+   ],
+   "ma_ke_thua": [],
+   "muc": "III.6",
+   "muc_nguon": "tu_khoa",
+   "tinh_trang": ""
+  },
+  {
+   "id": 31,
+   "cap": 2,
+   "cha": 29,
+   "stt": "",
+   "noi_dung": "Hồ sơ chất lượng lần 2",
+   "so_vb": "",
+   "ngay_raw": "06/2025",
+   "don_vi": "",
+   "ma": [
+    "HS.2025.3859"
+   ],
+   "ma_ke_thua": [],
+   "muc": "III.6",
+   "muc_nguon": "tu_khoa",
+   "tinh_trang": ""
+  },
+  {
+   "id": 32,
+   "cap": 2,
+   "cha": 29,
+   "stt": "",
+   "noi_dung": "Hồ sơ chất lượng lần 3",
+   "so_vb": "",
+   "ngay_raw": "07/2025",
+   "don_vi": "",
+   "ma": [
+    "HS.2025.3860"
+   ],
+   "ma_ke_thua": [],
+   "muc": "III.6",
+   "muc_nguon": "tu_khoa",
+   "tinh_trang": ""
+  },
+  {
+   "id": 33,
+   "cap": 2,
+   "cha": 29,
+   "stt": "",
+   "noi_dung": "Hồ sơ chất lượng lần 4",
+   "so_vb": "",
+   "ngay_raw": "08/2025",
+   "don_vi": "",
+   "ma": [
+    "HS.2025.3861"
+   ],
+   "ma_ke_thua": [],
+   "muc": "III.6",
+   "muc_nguon": "tu_khoa",
+   "tinh_trang": ""
+  },
+  {
+   "id": 34,
+   "cap": 2,
+   "cha": 29,
+   "stt": "",
+   "noi_dung": "Hồ sơ chất lượng lần 5",
+   "so_vb": "",
+   "ngay_raw": "09/2025",
+   "don_vi": "",
+   "ma": [
+    "HS.2026.68"
+   ],
+   "ma_ke_thua": [],
+   "muc": "III.6",
+   "muc_nguon": "tu_khoa",
+   "tinh_trang": ""
+  },
+  {
+   "id": 35,
+   "cap": 2,
+   "cha": 29,
+   "stt": "",
+   "noi_dung": "Hồ sơ chất lượng lần 6",
+   "so_vb": "",
+   "ngay_raw": "10/2025",
+   "don_vi": "",
+   "ma": [
+    "HS.2026.69"
+   ],
+   "ma_ke_thua": [],
+   "muc": "III.6",
+   "muc_nguon": "tu_khoa",
+   "tinh_trang": ""
+  },
+  {
+   "id": 36,
+   "cap": 1,
+   "cha": 13,
+   "stt": "2",
+   "noi_dung": "Nhà thầu: Công ty Cổ phần xây dựng HPQ Việt Nam",
+   "so_vb": "",
+   "ngay_raw": "",
+   "don_vi": "",
+   "ma": [],
+   "ma_ke_thua": [],
+   "muc": null,
+   "muc_nguon": null,
+   "tinh_trang": ""
+  },
+  {
+   "id": 37,
+   "cap": 2,
+   "cha": 36,
+   "stt": "",
+   "noi_dung": "Hồ sơ chất lượng lần 1",
+   "so_vb": "",
+   "ngay_raw": "10/2025",
+   "don_vi": "",
+   "ma": [
+    "HS.2026.53"
+   ],
+   "ma_ke_thua": [],
+   "muc": "III.6",
+   "muc_nguon": "tu_khoa",
+   "tinh_trang": ""
+  },
+  {
+   "id": 38,
+   "cap": 2,
+   "cha": 36,
+   "stt": "",
+   "noi_dung": "Hồ sơ chất lượng lần 2",
+   "so_vb": "",
+   "ngay_raw": "12/2025",
+   "don_vi": "",
+   "ma": [
+    "HS.2026.54"
+   ],
+   "ma_ke_thua": [],
+   "muc": "III.6",
+   "muc_nguon": "tu_khoa",
+   "tinh_trang": ""
+  },
+  {
+   "id": 39,
+   "cap": 1,
+   "cha": 13,
+   "stt": "2",
+   "noi_dung": "Nhà thầu: Công ty Cổ phần Thương mại Việt Hồng",
+   "so_vb": "",
+   "ngay_raw": "",
+   "don_vi": "",
+   "ma": [],
+   "ma_ke_thua": [],
+   "muc": null,
+   "muc_nguon": null,
+   "tinh_trang": ""
+  },
+  {
+   "id": 40,
+   "cap": 2,
+   "cha": 39,
+   "stt": "",
+   "noi_dung": "Hồ sơ chất lượng lần 1",
+   "so_vb": "",
+   "ngay_raw": "10/2025",
+   "don_vi": "",
+   "ma": [
+    "HS.2026.70"
+   ],
+   "ma_ke_thua": [],
+   "muc": "III.6",
+   "muc_nguon": "tu_khoa",
+   "tinh_trang": ""
+  },
+  {
+   "id": 41,
+   "cap": 0,
+   "cha": null,
+   "stt": "III",
+   "noi_dung": "BẢN VẼ HOÀN CÔNG",
+   "so_vb": "",
+   "ngay_raw": "",
+   "don_vi": "",
+   "ma": [],
+   "ma_ke_thua": [],
+   "muc": "III.2",
+   "muc_nguon": "tu_khoa",
+   "tinh_trang": ""
+  },
+  {
+   "id": 42,
+   "cap": 1,
+   "cha": 41,
+   "stt": "1",
+   "noi_dung": "Nhà thầu: Công ty Cổ phần T.T.S.C",
+   "so_vb": "",
+   "ngay_raw": "",
+   "don_vi": "",
+   "ma": [],
+   "ma_ke_thua": [],
+   "muc": "III.2",
+   "muc_nguon": "ke_thua",
+   "tinh_trang": ""
+  },
+  {
+   "id": 43,
+   "cap": 2,
+   "cha": 42,
+   "stt": "",
+   "noi_dung": "Bản vẽ hoàn công lần 1",
+   "so_vb": "",
+   "ngay_raw": "05/2025",
+   "don_vi": "",
+   "ma": [
+    "HS.2026.71"
+   ],
+   "ma_ke_thua": [],
+   "muc": "III.2",
+   "muc_nguon": "tu_khoa",
+   "tinh_trang": ""
+  },
+  {
+   "id": 44,
+   "cap": 2,
+   "cha": 42,
+   "stt": "",
+   "noi_dung": "Bản vẽ hoàn công lần 2",
+   "so_vb": "",
+   "ngay_raw": "06/2025",
+   "don_vi": "",
+   "ma": [
+    "HS.2026.72"
+   ],
+   "ma_ke_thua": [],
+   "muc": "III.2",
+   "muc_nguon": "tu_khoa",
+   "tinh_trang": ""
+  },
+  {
+   "id": 45,
+   "cap": 2,
+   "cha": 42,
+   "stt": "",
+   "noi_dung": "Bản vẽ hoàn công lần 3",
+   "so_vb": "",
+   "ngay_raw": "07/2025",
+   "don_vi": "",
+   "ma": [
+    "HS.2026.73"
+   ],
+   "ma_ke_thua": [],
+   "muc": "III.2",
+   "muc_nguon": "tu_khoa",
+   "tinh_trang": ""
+  },
+  {
+   "id": 46,
+   "cap": 2,
+   "cha": 42,
+   "stt": "",
+   "noi_dung": "Bản vẽ hoàn công lần 4",
+   "so_vb": "",
+   "ngay_raw": "08/2025",
+   "don_vi": "",
+   "ma": [
+    "HS.2026.74"
+   ],
+   "ma_ke_thua": [],
+   "muc": "III.2",
+   "muc_nguon": "tu_khoa",
+   "tinh_trang": ""
+  },
+  {
+   "id": 47,
+   "cap": 2,
+   "cha": 42,
+   "stt": "",
+   "noi_dung": "Bản vẽ hoàn công lần 5",
+   "so_vb": "",
+   "ngay_raw": "09/2025",
+   "don_vi": "",
+   "ma": [
+    "HS.2026.75"
+   ],
+   "ma_ke_thua": [],
+   "muc": "III.2",
+   "muc_nguon": "tu_khoa",
+   "tinh_trang": ""
+  },
+  {
+   "id": 48,
+   "cap": 2,
+   "cha": 42,
+   "stt": "",
+   "noi_dung": "Bản vẽ hoàn công lần 6",
+   "so_vb": "",
+   "ngay_raw": "10/2025",
+   "don_vi": "",
+   "ma": [
+    "HS.2026.76"
+   ],
+   "ma_ke_thua": [],
+   "muc": "III.2",
+   "muc_nguon": "tu_khoa",
+   "tinh_trang": ""
+  },
+  {
+   "id": 49,
+   "cap": 2,
+   "cha": 42,
+   "stt": "",
+   "noi_dung": "Bản vẽ hoàn công lần 7",
+   "so_vb": "",
+   "ngay_raw": "11/2025",
+   "don_vi": "",
+   "ma": [
+    "HS.2025.4893"
+   ],
+   "ma_ke_thua": [],
+   "muc": "III.2",
+   "muc_nguon": "tu_khoa",
+   "tinh_trang": ""
+  },
+  {
+   "id": 50,
+   "cap": 2,
+   "cha": 42,
+   "stt": "",
+   "noi_dung": "Nhà thầu: Công ty Cổ phần xây dựng CDC",
+   "so_vb": "",
+   "ngay_raw": "",
+   "don_vi": "",
+   "ma": [],
+   "ma_ke_thua": [],
+   "muc": "III.2",
+   "muc_nguon": "ke_thua",
+   "tinh_trang": ""
+  },
+  {
+   "id": 51,
+   "cap": 2,
+   "cha": 42,
+   "stt": "",
+   "noi_dung": "Bản vẽ hoàn công lần 1",
+   "so_vb": "",
+   "ngay_raw": "06/2025",
+   "don_vi": "",
+   "ma": [
+    "HS.2026.77"
+   ],
+   "ma_ke_thua": [],
+   "muc": "III.2",
+   "muc_nguon": "tu_khoa",
+   "tinh_trang": ""
+  },
+  {
+   "id": 52,
+   "cap": 2,
+   "cha": 42,
+   "stt": "",
+   "noi_dung": "Bản vẽ hoàn công lần 2",
+   "so_vb": "",
+   "ngay_raw": "07/2025",
+   "don_vi": "",
+   "ma": [
+    "HS.2026.78"
+   ],
+   "ma_ke_thua": [],
+   "muc": "III.2",
+   "muc_nguon": "tu_khoa",
+   "tinh_trang": ""
+  },
+  {
+   "id": 53,
+   "cap": 2,
+   "cha": 42,
+   "stt": "",
+   "noi_dung": "Bản vẽ hoàn công lần 3",
+   "so_vb": "",
+   "ngay_raw": "08/2025",
+   "don_vi": "",
+   "ma": [
+    "HS.2026.86"
+   ],
+   "ma_ke_thua": [],
+   "muc": "III.2",
+   "muc_nguon": "tu_khoa",
+   "tinh_trang": ""
+  },
+  {
+   "id": 54,
+   "cap": 2,
+   "cha": 42,
+   "stt": "",
+   "noi_dung": "Bản vẽ hoàn công lần 4",
+   "so_vb": "",
+   "ngay_raw": "09/2025",
+   "don_vi": "",
+   "ma": [
+    "HS.2026.87"
+   ],
+   "ma_ke_thua": [],
+   "muc": "III.2",
+   "muc_nguon": "tu_khoa",
+   "tinh_trang": ""
+  },
+  {
+   "id": 55,
+   "cap": 2,
+   "cha": 42,
+   "stt": "",
+   "noi_dung": "Bản vẽ hoàn công lần 5",
+   "so_vb": "",
+   "ngay_raw": "10/2025",
+   "don_vi": "",
+   "ma": [
+    "HS.2026.85"
+   ],
+   "ma_ke_thua": [],
+   "muc": "III.2",
+   "muc_nguon": "tu_khoa",
+   "tinh_trang": ""
+  },
+  {
+   "id": 56,
+   "cap": 2,
+   "cha": 42,
+   "stt": "",
+   "noi_dung": "Bản vẽ hoàn công lần 6",
+   "so_vb": "",
+   "ngay_raw": "11/2025",
+   "don_vi": "",
+   "ma": [
+    "HS.2025.4902"
+   ],
+   "ma_ke_thua": [],
+   "muc": "III.2",
+   "muc_nguon": "tu_khoa",
+   "tinh_trang": ""
+  },
+  {
+   "id": 57,
+   "cap": 1,
+   "cha": 41,
+   "stt": "1",
+   "noi_dung": "Nhà thầu: Công ty TNHH Đầu tư xây dựng Đại Hảo",
+   "so_vb": "",
+   "ngay_raw": "",
+   "don_vi": "",
+   "ma": [],
+   "ma_ke_thua": [],
+   "muc": "III.2",
+   "muc_nguon": "ke_thua",
+   "tinh_trang": ""
+  },
+  {
+   "id": 58,
+   "cap": 2,
+   "cha": 57,
+   "stt": "",
+   "noi_dung": "Bản vẽ hoàn công lần 1",
+   "so_vb": "",
+   "ngay_raw": "05/2025",
+   "don_vi": "",
+   "ma": [
+    "HS.2026.79"
+   ],
+   "ma_ke_thua": [],
+   "muc": "III.2",
+   "muc_nguon": "tu_khoa",
+   "tinh_trang": ""
+  },
+  {
+   "id": 59,
+   "cap": 2,
+   "cha": 57,
+   "stt": "",
+   "noi_dung": "Bản vẽ hoàn công lần 2",
+   "so_vb": "",
+   "ngay_raw": "06/2025",
+   "don_vi": "",
+   "ma": [
+    "HS.2026.80"
+   ],
+   "ma_ke_thua": [],
+   "muc": "III.2",
+   "muc_nguon": "tu_khoa",
+   "tinh_trang": ""
+  },
+  {
+   "id": 60,
+   "cap": 2,
+   "cha": 57,
+   "stt": "",
+   "noi_dung": "Bản vẽ hoàn công lần 3",
+   "so_vb": "",
+   "ngay_raw": "07/2025",
+   "don_vi": "",
+   "ma": [
+    "HS.2026.81"
+   ],
+   "ma_ke_thua": [],
+   "muc": "III.2",
+   "muc_nguon": "tu_khoa",
+   "tinh_trang": ""
+  },
+  {
+   "id": 61,
+   "cap": 2,
+   "cha": 57,
+   "stt": "",
+   "noi_dung": "Bản vẽ hoàn công lần 4",
+   "so_vb": "",
+   "ngay_raw": "08/2025",
+   "don_vi": "",
+   "ma": [
+    "HS.2026.82"
+   ],
+   "ma_ke_thua": [],
+   "muc": "III.2",
+   "muc_nguon": "tu_khoa",
+   "tinh_trang": ""
+  },
+  {
+   "id": 62,
+   "cap": 2,
+   "cha": 57,
+   "stt": "",
+   "noi_dung": "Bản vẽ hoàn công lần 5",
+   "so_vb": "",
+   "ngay_raw": "09/2025",
+   "don_vi": "",
+   "ma": [
+    "HS.2026.83"
+   ],
+   "ma_ke_thua": [],
+   "muc": "III.2",
+   "muc_nguon": "tu_khoa",
+   "tinh_trang": ""
+  },
+  {
+   "id": 63,
+   "cap": 2,
+   "cha": 57,
+   "stt": "",
+   "noi_dung": "Bản vẽ hoàn công lần 6",
+   "so_vb": "",
+   "ngay_raw": "10/2025",
+   "don_vi": "",
+   "ma": [
+    "HS.2026.84"
+   ],
+   "ma_ke_thua": [],
+   "muc": "III.2",
+   "muc_nguon": "tu_khoa",
+   "tinh_trang": ""
+  }
+ ]
+}
