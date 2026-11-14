@@ -40,7 +40,11 @@ def xuat_xlsx(R, ten_file="", ai=None):
            ("dia_diem", "Địa điểm"), ("chu_dau_tu", "Chủ đầu tư"), ("tvgs", "Tư vấn giám sát"), ("nha_thau", "Nhà thầu thi công"),
            ("hop_dong", "Hợp đồng")]
     rows = [(l, meta.get(key, "")) for key, l in lab if meta.get(key)] + [("File kiểm tra", ten_file),
-                                                                          ("Loại nghiệm thu", R["loai_nt_label"])]
+                                                                          ("Loại nghiệm thu", R["loai_nt_label"]),
+                                                                          ("Vai trò", "Thầu phụ" if R.get("vai_tro") == "phu" else "Tổng thầu / thầu chính"),
+                                                                          ("Quy mô – phạm vi", R.get("quy_mo_label", ""))]
+    rows += [(f"Vòng {i}", (R.get("vong") or {}).get(f"v{i}")) for i in (1, 2) if (R.get("vong") or {}).get(f"v{i}")]
+    rows.append(("Người xây dựng công cụ", "Hoàng Đức Vũ – Trưởng phòng Kỹ thuật"))
     for a, b in rows:
         ws.merge_cells(start_row=r, start_column=1, end_row=r, end_column=3)
         ws.cell(r, 1, a).font = Font(name=X.FONT, size=10, bold=True, color=X.C["navy"])

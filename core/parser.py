@@ -451,8 +451,9 @@ def xay_cay(rows):
 
 
 # ----------------------------------------------------------------------------- API
-def doc_file(name, data, sheets=None):
-    """Đọc một file → dict(meta, rows, warnings, text, info)."""
+def doc_file(name, data, sheets=None, ocr=False, ocr_max=15):
+    """Đọc một file → dict(meta, rows, warnings, text, info).
+    ocr=True: PDF ảnh scan thì thử đọc bằng OCR (core/ocr.py) – chỉ khi máy có Tesseract tiếng Việt."""
     ext = name.lower().rsplit(".", 1)[-1]
     warnings = []
     meta = {}
@@ -461,9 +462,20 @@ def doc_file(name, data, sheets=None):
         tables, text, info = tables_docx(data)
     elif ext == "pdf":
         tables, text, info = tables_pdf(data)
+        if info["scan"] and ocr:
+            from . import ocr as _ocr
+            ok, msg = _ocr.san_sang()
+            if ok:
+                text, n_ocr = _ocr.ocr_pdf(data, max_trang=ocr_max)
+                tables, info["scan"], info["ocr"] = [], False, n_ocr
+                warnings.append(f"PDF ảnh scan – đã đọc {n_ocr} trang đầu bằng OCR ({msg}). Độ chính xác thấp hơn file gốc: "
+                                "số hiệu, ngày, mã có thể sai – phải đối chiếu lại bản scan.")
+            else:
+                warnings.append("PDF dạng ảnh scan – máy này chưa có OCR: " + msg)
         if info["scan"]:
             warnings.append("PDF dạng ảnh scan (gần như không có lớp chữ) – công cụ chưa đọc được. "
-                            "Đề nghị dùng bản Word/Excel gốc hoặc PDF xuất trực tiếp từ Word/Excel (AI cũng không đọc được ảnh scan).")
+                            "Đề nghị gửi bản Word/Excel gốc của danh mục hoặc PDF xuất trực tiếp từ Word/Excel; "
+                            "bản scan có chữ ký, đóng dấu nộp kèm để lưu.")
     elif ext in ("xlsx", "xlsm"):
         tables, text, info = tables_xlsx(data, sheets)
         sheet_names = info.get("sheets_doc")
@@ -583,7 +595,7 @@ def nhan_dien_tep(name, meta, text):
     return loai, muc, (int(mdot.group(2)) if mdot else None)
 
 
-def doc_nhieu_file(parts):
+def doc_nhieu_file(parts, ocr=False):
     """parts = [(tên hiển thị, tên file, bytes, sheet|None)] → (doc gộp, [báo cáo đăng tải], danh sách tệp).
     Mỗi tệp thành một nhóm cấp 0 trong 'quyển ảo'; tệp báo cáo đăng tải được tách ra để đối chiếu."""
     rows_all, tep, bcs, warnings, texts = [], [], [], [], []
@@ -591,7 +603,7 @@ def doc_nhieu_file(parts):
     co_cot = set()
     nid = 0
     for label, fname, data, sheet in parts:
-        d = doc_file(fname, data, sheets=[sheet] if sheet else None)
+        d = doc_file(fname, data, sheets=[sheet] if sheet else None, ocr=ocr)
         loai, muc, dot = nhan_dien_tep(label, d["meta"], d["text"])
         if d["info"].get("kieu") == "BAO_CAO_DANG_TAI":
             loai, muc = "bao_cao_dang_tai", None

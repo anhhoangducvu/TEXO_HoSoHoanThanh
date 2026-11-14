@@ -225,7 +225,7 @@ def build_prompt(R, max_rows=260):
                     f"| mã: {','.join(r['ma_hl'])} | mục công cụ gán: {r.get('muc') or 'CHƯA'} ({r.get('muc_nguon') or ''})")
     fnd = [f"[{f['muc_do']}] {f['tieu_de']}" for f in R["findings"]]
     return f"""THÔNG TIN CHUNG: {_json.dumps(meta, ensure_ascii=False)}
-LOẠI NGHIỆM THU: {R['loai_nt_label']} · Nghị định áp dụng: {R['nghi_dinh']} · Vai trò nhà thầu: {R.get('vai_tro', 'chinh')}
+LOẠI NGHIỆM THU: {R['loai_nt_label']} · Nghị định áp dụng: {R['nghi_dinh']} · Vai trò nhà thầu: {R.get('vai_tro', 'chinh')} · Quy mô: {R.get('quy_mo_label', '')}
 
 DANH SÁCH MỤC PHỤ LỤC VII (mã: tên):
 {_ds_muc()}

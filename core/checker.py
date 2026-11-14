@@ -16,6 +16,7 @@ from datetime import date
 
 from . import kb
 from .parser import norm, doc_ngay
+from . import cot_loi as cot_loi_mod
 
 TEP_LABEL_SAFE = {"hoan_cong": "Bản vẽ hoàn công", "vat_lieu": "Nghiệm thu vật liệu"}
 SEV_ORDER = {"high": 0, "mid": 1, "info": 2}
@@ -156,8 +157,13 @@ def _f(findings, sev, ma_loi, tieu_de, chi_tiet="", dong=None, muc=None, de_xuat
 
 
 # ----------------------------------------------------------------------------- kiểm tra chính
-def kiem_tra(doc, loai_nt="HT", ngay_nt=None, bc_dang_tai=None, ds_vpdt=None, hom_nay=None, vai_tro="chinh"):
-    """vai_tro: "chinh" – tổng thầu / thầu chính (kiểm tra kỹ pháp lý dự án); "phu" – thầu phụ / nhà thầu nhỏ."""
+def kiem_tra(doc, loai_nt="HT", ngay_nt=None, bc_dang_tai=None, ds_vpdt=None, hom_nay=None, vai_tro="chinh",
+             quy_mo="lon"):
+    """Vòng 3 – kiểm tra chi tiết.
+    vai_tro: "chinh" – tổng thầu / thầu chính; "phu" – thầu phụ (hỏi thêm chấp thuận thầu phụ, HĐ thầu chính – CĐT).
+    quy_mo : "lon" – tổng thầu / thầu chính / phần ngầm / phần thân → đủ PL VII; "hang_muc" – nhà thầu một hạng mục;
+             "nho" – nhà thầu nhỏ lẻ → chỉ các mục cốt lõi (kb.PHAM_VI_QUY_MO)."""
+    quy_mo = quy_mo if quy_mo in kb.QUY_MO else "lon"
     hom_nay = hom_nay or date.today()
     rows = gan_muc(doc["rows"])
     meta = doc.get("meta", {})
@@ -198,7 +204,7 @@ def kiem_tra(doc, loai_nt="HT", ngay_nt=None, bc_dang_tai=None, ds_vpdt=None, ho
         _f(findings, "info", "F12", "Phần thông tin chung của danh mục còn thiếu: " + ", ".join(thieu),
            "Quyển danh mục cần thể hiện rõ dự án, hạng mục/gói thầu, địa điểm, chủ đầu tư, các nhà thầu và số hợp đồng để xác định phạm vi hồ sơ.",
            de_xuat="Bổ sung khối thông tin chung ở đầu danh mục.")
-    if not any(r["cap"] == 0 for r in rows) and info.get("kieu") not in ("BAO_CAO_DANG_TAI", "BO_HO_SO"):
+    if quy_mo == "lon" and not any(r["cap"] == 0 for r in rows) and info.get("kieu") not in ("BAO_CAO_DANG_TAI", "BO_HO_SO"):
         _f(findings, "info", "F18", "Danh mục chưa chia nhóm theo 3 phần của Phụ lục VII",
            "Nên sắp theo: I. Chuẩn bị đầu tư và hợp đồng · II. Khảo sát, thiết kế · III. Quản lý thi công – để người đọc nắm trình tự hồ sơ.")
 
@@ -212,17 +218,19 @@ def kiem_tra(doc, loai_nt="HT", ngay_nt=None, bc_dang_tai=None, ds_vpdt=None, ho
     co_hs_chat_luong = any(re.search(r"ho so (chat luong|nghiem thu)|hoan thanh goi thau", norm(r["noi_dung"])) for r in rows)
     for m in kb.MUC:
         code = m["code"]
-        yc = m["ap_dung"][col]
+        yc = kb.muc_ap_dung(code, col, quy_mo)
         if vai_tro == "phu" and yc == "B" and code in kb.CDT_LUU and code not in ("I.2", "I.7"):
             yc = "Đ"  # thầu phụ / nhà thầu nhỏ: pháp lý dự án chỉ đối chiếu nếu có
         rs = by_muc.get(code, [])
+        if code == "III.5" and not rs and quy_mo != "lon":
+            rs = by_muc.get("III.7", [])  # nhà thầu hạng mục: thí nghiệm cọc (PIT, siêu âm, nén tĩnh) xếp ở III.7
         ct = [r for r in rs if _la_dong_chi_tiet(r)]
         co_sh = [r for r in rs if r["so_vb"] or r["ngay_raw"]]
         co_ma = [r for r in rs if r["ma_hl"]]
         mas = sorted({x for r in rs for x in r["ma_hl"]})
         van_de = []
         if rs:
-            if m["hinh_thuc"] in ("VB", "PD") and not co_sh and code not in ("T.1", "T.2", "T.9"):
+            if m["hinh_thuc"] in ("VB", "PD") and not co_sh and code not in ("T.2", "T.9"):
                 van_de.append("chưa ghi số/ngày văn bản" + (" phê duyệt/chấp thuận" if m["hinh_thuc"] == "PD" else ""))
             if m["hinh_thuc"] == "QUYEN" and m["can_dm_kem"] and len(ct) <= 1 and not co_sh:
                 van_de.append("mới có tên quyển, chưa có danh mục chi tiết kèm theo")
@@ -235,7 +243,8 @@ def kiem_tra(doc, loai_nt="HT", ngay_nt=None, bc_dang_tai=None, ds_vpdt=None, ho
                 if m["neu_co"]:
                     tt, kl = "mid", "Chưa thấy – nếu không có phải ghi rõ “Không có”"
                 else:
-                    tt = "high" if code in kb.MUC_COT_LOI.get(col, set()) else "mid"
+                    cot_loi = (kb.MUC_COT_LOI if quy_mo == "lon" else kb.MUC_COT_LOI_QM[quy_mo]).get(col, set())
+                    tt = "high" if code in cot_loi else "mid"
                     kl = "Chưa thấy trong danh mục"
             else:
                 tt, kl = "info", "Không thấy (đối chiếu nếu có)"
@@ -286,11 +295,12 @@ def kiem_tra(doc, loai_nt="HT", ngay_nt=None, bc_dang_tai=None, ds_vpdt=None, ho
     txt_rows = {r["id"]: norm(r["noi_dung"] + " " + r["so_vb"]) for r in rows}
     t_i9 = " ".join(txt_rows[r["id"]] for r in rows if r.get("muc") in ("I.9", "III.16"))
     if by_muc.get("I.9"):
-        thieu9 = [k for k, p in kb.I9_THANH_PHAN.items() if not re.search(p, t_i9)]
+        can9 = kb.I9_THEO_QUY_MO.get(quy_mo, list(kb.I9_THANH_PHAN))
+        thieu9 = [k for k in can9 if not re.search(kb.I9_THANH_PHAN[k], t_i9)]
         if thieu9:
             _f(findings, "mid", "F20", "Hồ sơ năng lực nhà thầu (I.9) chưa thể hiện đủ thành phần tối thiểu: " + ", ".join(thieu9),
-               "Tối thiểu cần: hồ sơ năng lực/kinh nghiệm, sơ đồ tổ chức, nhân sự, máy móc thiết bị thi công.", muc="I.9",
-               de_xuat="Bổ sung các thành phần còn thiếu; đề nghị nhà thầu làm rõ năng lực tài chính.")
+               "Tối thiểu cần: " + ", ".join(can9).lower() + ".", muc="I.9",
+               de_xuat="Bổ sung các thành phần còn thiếu" + ("; đề nghị nhà thầu làm rõ năng lực tài chính." if quy_mo == "lon" else "."))
     t_all = " ".join(txt_rows.values())
     co_tb = bool(by_muc.get("III.8")) or bool(re.search(r"thiet bi (lap dat|cong nghe)|may bom|tram bom|thang may|dieu hoa|may phat|tu dien", t_all))
     if co_tb and col == "HT":
@@ -310,6 +320,13 @@ def kiem_tra(doc, loai_nt="HT", ngay_nt=None, bc_dang_tai=None, ds_vpdt=None, ho
            ("Có tổng thầu: " + meta["tong_thau"] + ". ") if meta.get("tong_thau") else "",
            dong=[r["id"] for r in hd], muc="I.8",
            de_xuat="Bổ sung hợp đồng giữa chủ đầu tư với tổng thầu / thầu chính làm căn cứ phạm vi gói thầu.")
+
+    if vai_tro == "phu":
+        tp = {c["key"]: c for c in cot_loi_mod.tim_thanh_phan(rows, doc.get("tep"), loai_nt, vai_tro, quy_mo)}
+        if tp.get("TP_PD", {}).get("trang_thai") == "thieu":
+            _f(findings, "mid", "F24", "Thầu phụ: chưa thấy văn bản chủ đầu tư chấp thuận nhà thầu phụ",
+               "Nhà thầu phụ chỉ được tham gia khi chủ đầu tư chấp thuận (hoặc có trong hồ sơ dự thầu được duyệt của nhà thầu chính).",
+               muc="I.8", de_xuat=kb.THANH_PHAN_COT_LOI[[c["key"] for c in kb.THANH_PHAN_COT_LOI].index("TP_PD")]["cau_hoi"])
 
     # ---------------- 3. mã VPĐT
     ma_map = OrderedDict()
@@ -515,7 +532,7 @@ def kiem_tra(doc, loai_nt="HT", ngay_nt=None, bc_dang_tai=None, ds_vpdt=None, ho
            "Dòng: " + _fmt_ids([r["id"] for r in chua_pl], 20) + ". Bật AI để phân loại bổ sung, hoặc bổ sung từ khóa vào bộ quy tắc.",
            dong=[r["id"] for r in chua_pl])
     if cot_tt:
-        sao_quan_trong = [r["id"] for r in rows if r.get("muc") in ("III.13", "T.1", "I.8") and "sao" in norm(r["tinh_trang"])]
+        sao_quan_trong = [r["id"] for r in rows if r.get("muc") in ("III.13", "I.8") and "sao" in norm(r["tinh_trang"])]
         if sao_quan_trong:
             _f(findings, "mid", "F15", f"{len(sao_quan_trong)} tài liệu chính chỉ là bản sao",
                "Dòng: " + _fmt_ids(sao_quan_trong) + ". Điều 28.4: hồ sơ hoàn thành lưu bản gốc (hoặc bản chính/bản sao hợp pháp).",
@@ -588,6 +605,8 @@ def kiem_tra(doc, loai_nt="HT", ngay_nt=None, bc_dang_tai=None, ds_vpdt=None, ho
     it_by = {it["code"]: it for it in items}
     cau_hoi_muc = []
     for code, qs in kb.CAU_HOI_KT.items():
+        if code == "I" and quy_mo != "lon":
+            continue
         if code in ("I", "III"):
             cau_hoi_muc.append(dict(code=code, ten=kb.NHOM[code], trang_thai="info", cau_hoi=qs))
             continue
@@ -613,5 +632,5 @@ def kiem_tra(doc, loai_nt="HT", ngay_nt=None, bc_dang_tai=None, ds_vpdt=None, ho
     return dict(meta=meta, info=info, loai_nt=loai_nt, loai_nt_label=kb.LOAI_NT.get(loai_nt, loai_nt),
                 nghi_dinh=nghi_dinh, ngay_nt=ngay_nt, rows=rows, items=items, ma_map=ma_map, findings=findings,
                 kpi=kpi, ket_luan=ket_luan, ket_luan_sev=kl_sev, cau_hoi=cau_hoi, cau_hoi_muc=cau_hoi_muc,
-                vai_tro=vai_tro, doi_chieu=doi_chieu, tep=tep,
+                vai_tro=vai_tro, quy_mo=quy_mo, quy_mo_label=kb.QUY_MO[quy_mo], doi_chieu=doi_chieu, tep=tep,
                 warnings=doc.get("warnings", []))

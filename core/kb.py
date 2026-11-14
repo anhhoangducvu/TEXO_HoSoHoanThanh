@@ -12,9 +12,10 @@ Mỗi mục có:
                 "QUYEN"  – một quyển/tập hồ sơ: danh mục chỉ là mục lục, phải xem quyển
   can_dm_kem  : PL VII yêu cầu "có danh mục … kèm theo" (bản vẽ, thay đổi thiết kế…)
   neu_co      : PL VII ghi "(nếu có)" → thiếu thì hỏi, không tự đánh trượt
-  ap_dung     : {"GD": B|Đ|-, "HT": B|Đ|-}
+  ap_dung     : {"GD": B|Đ|-, "HT": B|Đ|-, "TT": B|Đ|-}
                 GD = nghiệm thu giai đoạn / bộ phận / hoàn thành gói thầu (Điều 23)
                 HT = nghiệm thu hoàn thành hạng mục công trình, công trình (Điều 24)
+                TT = thanh toán đợt cho nhà thầu (Điều 18) – gán ở TT_MAP cuối file
                 B  = phải có hoặc phải nêu căn cứ · Đ = đối chiếu nếu có · - = không xét
   tu_khoa     : biểu thức chính quy trên văn bản đã BỎ DẤU, chữ thường
   loai_tru    : biểu thức loại trừ (nếu khớp thì KHÔNG gán mục này)
@@ -29,16 +30,17 @@ NHOM = {
     "I": "HỒ SƠ CHUẨN BỊ ĐẦU TƯ XÂY DỰNG VÀ HỢP ĐỒNG",
     "II": "HỒ SƠ KHẢO SÁT XÂY DỰNG, THIẾT KẾ XÂY DỰNG CÔNG TRÌNH",
     "III": "HỒ SƠ QUẢN LÝ THI CÔNG XÂY DỰNG CÔNG TRÌNH",
-    "T": "KIỂM TRA BỔ SUNG CỦA PHÒNG KỸ THUẬT (ngoài PL VII)",
+    "T": "KIỂM TRA BỔ SUNG CỦA PHÒNG KỸ THUẬT (ngoài PL VII) – chỉ hồ sơ của nhà thầu",
 }
 
 LOAI_NT = {
     "GD": "Nghiệm thu giai đoạn / bộ phận công trình (Điều 23)",
     "GT": "Nghiệm thu hoàn thành gói thầu (Điều 23.1.b)",
     "HT": "Nghiệm thu hoàn thành hạng mục công trình / công trình (Điều 24)",
+    "TT": "Thanh toán đợt cho nhà thầu (Điều 18)",
 }
 # Gói thầu áp dụng cột GD của ma trận
-COT_MA_TRAN = {"GD": "GD", "GT": "GD", "HT": "HT"}
+COT_MA_TRAN = {"GD": "GD", "GT": "GD", "HT": "HT", "TT": "TT"}
 
 MUC = [
     # ------------------------------------------------------------------ I
@@ -67,7 +69,8 @@ MUC = [
     dict(code="I.6", ten="Giao đất, cho thuê đất",
          nguyen_van="Quyết định giao đất, cho thuê đất hoặc hợp đồng thuê đất.",
          hinh_thuc="VB", can_dm_kem=False, neu_co=False, ap_dung={"GD": "-", "HT": "B"},
-         tu_khoa=[r"giao dat", r"thue dat", r"quyen su dung dat", r"so do"]),
+         tu_khoa=[r"giao dat", r"thue dat", r"quyen su dung dat",
+                  r"\bso do\b(?!\s*(to chuc|nhan su|bo tri|mat bang|khoi|nguyen ly|he thong|day|vi tri|tuyen|cong nghe|thi cong))"]),
     dict(code="I.7", ten="Giấy phép xây dựng",
          nguyen_van="Giấy phép xây dựng, trừ trường hợp được miễn.",
          hinh_thuc="VB", can_dm_kem=False, neu_co=False, ap_dung={"GD": "B", "HT": "B"},
@@ -233,12 +236,8 @@ MUC = [
          tu_khoa=[r"ban giao (moc|mat bang|tim|coc)", r"an toan lao dong", r"\batld\b", r"\batvsld\b", r"ve sinh moi truong",
                   r"\bvsmt\b", r"bao hiem", r"cong nhan", r"may moc", r"noi quy", r"tieu lenh", r"phong chay|pccc", r"bao ho",
                   r"huan luyen", r"so cap cuu", r"lut bao", r"cuu ho", r"phieu yeu cau nghiem thu", r"anh (hien truong|thi cong)",
-                  r"bao cao (tuan|thang|dinh ky)"]),
+                  r"bao cao (tuan|thang|dinh ky)", r"bao cao .*(tu van giam sat|tvgs|cong tac giam sat)"]),
     # ------------------------------------------------------------------ T (bổ sung P.KT)
-    dict(code="T.1", ten="Báo cáo hoàn thành công tác giám sát (Phụ lục IVb)",
-         nguyen_van="Báo cáo hoàn thành công tác giám sát thi công gói thầu/giai đoạn/hạng mục/công trình của TVGS (Phụ lục IVb NĐ 207).",
-         hinh_thuc="VB", can_dm_kem=False, neu_co=False, ap_dung={"GD": "B", "HT": "B"},
-         tu_khoa=[r"bao cao .*(tu van giam sat|tvgs|cong tac giam sat)", r"bao cao hoan thanh cong tac giam sat"]),
     dict(code="T.2", ten="Báo cáo hoàn thành của nhà thầu thi công",
          nguyen_van="Báo cáo hoàn thành hạng mục/gói thầu của nhà thầu thi công (căn cứ đề nghị nghiệm thu).",
          hinh_thuc="VB", can_dm_kem=False, neu_co=True, ap_dung={"GD": "Đ", "HT": "Đ"},
@@ -264,14 +263,14 @@ for _m in MUC:
     _m["chu_the"] = "CĐT" if _m["code"] in CDT_LUU else "Nhà thầu / TVGS"
 
 # Thứ tự ưu tiên khi một dòng khớp nhiều mục: mục cụ thể trước, mục "khác" sau.
-UU_TIEN = ["III.13", "III.14", "III.15", "T.1", "T.2", "III.10b", "III.10d", "III.10c", "III.10e", "III.10đ",
+UU_TIEN = ["III.13", "III.14", "III.15", "T.2", "III.10b", "III.10d", "III.10c", "III.10e", "III.10đ",
            "III.10g", "III.10a", "II.2", "II.4", "III.2", "III.1", "III.7", "III.8", "III.9", "III.11", "III.12",
            "III.5", "III.4", "III.6", "T.3", "T.9", "I.3", "I.1", "I.2", "I.4", "I.6", "I.7", "II.3", "II.1", "II.5", "I.5",
            "III.3", "I.9", "I.8", "III.16", "I.10", "III.10h"]
 
 # Mục cốt lõi: thiếu là 🔴 (Phải xử lý) thay vì 🟠
-MUC_COT_LOI = {"GD": {"I.8", "II.3", "III.2", "III.6", "T.1"},
-               "HT": {"I.2", "I.8", "II.3", "III.2", "III.6", "III.13", "T.1"}}
+MUC_COT_LOI = {"GD": {"I.8", "II.3", "III.2", "III.6"},
+               "HT": {"I.2", "I.8", "II.3", "III.2", "III.6", "III.13"}}
 
 HINH_THUC_LABEL = {
     "VB": "Văn bản có số/ngày",
@@ -294,7 +293,6 @@ CAU_HOI = {
     "III.9": "Quy trình bảo trì, quy trình vận hành do bên nào lập (thiết kế / nhà thầu cung cấp – lắp đặt thiết bị)? Đề nghị bổ sung hoặc cho biết nơi lưu.",
     "III.10b": "Đã có biên bản nghiệm thu (nội bộ) hệ thống PCCC trước khi đưa công trình vào sử dụng chưa? Có văn bản của cơ quan có thẩm quyền về PCCC (nếu thuộc diện) không?",
     "III.13": "Bổ sung biên bản nghiệm thu hoàn thành hạng mục/công trình (đủ thành phần ký theo Điều 24.6).",
-    "T.1": "Bổ sung báo cáo hoàn thành công tác giám sát của TVGS theo Phụ lục IVb NĐ 207.",
     "T.3": "Bổ sung nhật ký thi công để đối chiếu ngày nghiệm thu.",
 }
 
@@ -347,3 +345,166 @@ III8_THANH_PHAN = {
 
 VAI_TRO = {"chinh": "Tổng thầu / thầu chính thi công (kiểm tra kỹ pháp lý dự án)",
            "phu": "Thầu phụ / nhà thầu chuyên ngành quy mô nhỏ (pháp lý dự án chỉ đối chiếu nếu có)"}
+
+
+# ---------------------------------------------------------------------------
+# Cột THANH TOÁN ĐỢT (Điều 18) – nguồn duy nhất, dùng chung cho skill
+# texo-kiemtra-trinhky và app "Kiểm tra Hồ sơ chất lượng dự án".
+# Mục không có trong TT_MAP = "-" (không xét khi thanh toán).
+TT_MAP = {
+    "I.8": "B",    # hợp đồng là căn cứ thanh toán
+    "I.9": "Đ",
+    "II.3": "B",   # thiết kế được duyệt – gốc đối chiếu khối lượng
+    "III.1": "B",  # khối lượng phát sinh phải có thay đổi thiết kế được duyệt
+    "III.2": "B",  # đợt có khối lượng che khuất
+    "III.4": "Đ",
+    "III.5": "Đ",
+    "III.6": "B",  # khối lượng thanh toán phải đã nghiệm thu
+    "III.8": "Đ",
+    "T.9": "B",
+}
+for _m in MUC:
+    _m["ap_dung"].setdefault("TT", TT_MAP.get(_m["code"], "-"))
+
+
+# ===========================================================================
+# PHẠM VI KIỂM TRA THEO QUY MÔ NHÀ THẦU (v2.0 – 14/11/2026)
+# Danh mục hồ sơ hoàn thành theo PL VII là bộ hồ sơ Chủ đầu tư tập hợp gửi cơ quan quản lý nhà nước.
+# Chỉ tổng thầu / thầu chính / nhà thầu phần ngầm, kết cấu phần thân mới phải rà đủ PL VII.
+# Nhà thầu một hạng mục và nhà thầu nhỏ chỉ xét bộ hồ sơ cốt lõi của phần việc mình làm;
+# pháp lý dự án (chủ trương, phê duyệt dự án, đất đai, đấu nối, quy hoạch…) không hỏi nhà thầu này.
+# Hai trục độc lập: QUY_MO (lớn / hạng mục / nhỏ) và VAI_TRO (thầu chính / thầu phụ).
+QUY_MO = {
+    "lon": "Tổng thầu / thầu chính / phần ngầm / kết cấu phần thân – kiểm tra đủ Phụ lục VII",
+    "hang_muc": "Nhà thầu một hạng mục (cọc khoan nhồi, tường vây, cơ điện, PCCC, thang máy, mặt dựng…) – "
+                "bộ cốt lõi và hồ sơ kỹ thuật của hạng mục",
+    "nho": "Nhà thầu nhỏ lẻ (sơn bả, hoàn thiện, camera, cung cấp – lắp đặt đơn giản…) – chỉ bộ cốt lõi",
+}
+QUY_MO_NGAN = {"lon": "Nhà thầu lớn", "hang_muc": "Nhà thầu hạng mục", "nho": "Nhà thầu nhỏ"}
+
+# Mức tối đa của từng mục theo quy mô (B > Đ > -). Mức áp dụng = mức thấp hơn giữa ma trận loại nghiệm thu
+# và mức tối đa này. Mục không có trong bảng = "-" (không hỏi nhà thầu).
+PHAM_VI_QUY_MO = {
+    "hang_muc": {
+        "I.7": "Đ",     # GPXD: chỉ hỏi khi là gói thi công đầu tiên (cọc, tường vây khởi công công trình)
+        "I.8": "B", "I.9": "B", "II.3": "Đ", "III.1": "Đ", "III.2": "B", "III.3": "Đ", "III.4": "B",
+        "III.5": "B", "III.6": "B", "III.7": "Đ", "III.8": "Đ", "III.9": "Đ", "III.10b": "Đ", "III.10d": "Đ",
+        "III.11": "Đ", "III.12": "Đ", "III.13": "B", "T.2": "Đ", "T.3": "Đ", "T.9": "B",
+    },
+    "nho": {
+        "I.8": "B", "I.9": "B", "III.1": "Đ", "III.2": "B", "III.4": "B", "III.5": "Đ", "III.6": "B",
+        "III.8": "Đ", "III.12": "Đ", "III.13": "B", "T.9": "B",
+    },
+}
+_HANG = {"B": 2, "Đ": 1, "-": 0}
+
+
+def muc_ap_dung(code, col, quy_mo="lon"):
+    """Mức áp dụng của một mục PL VII theo cột loại nghiệm thu và quy mô nhà thầu."""
+    base = MUC_BY_CODE[code]["ap_dung"].get(col, "-")
+    if quy_mo not in PHAM_VI_QUY_MO:
+        return base
+    cap = PHAM_VI_QUY_MO[quy_mo].get(code, "-")
+    return base if _HANG[base] <= _HANG[cap] else cap
+
+
+# Mục cốt lõi theo quy mô (thiếu là 🔴)
+MUC_COT_LOI_QM = {
+    "hang_muc": {"GD": {"I.8", "III.2", "III.4", "III.6"}, "HT": {"I.8", "III.2", "III.4", "III.6", "III.13"},
+                 "TT": {"I.8", "III.6"}},
+    "nho": {"GD": {"I.8", "III.2", "III.4", "III.6"}, "HT": {"I.8", "III.2", "III.4", "III.6", "III.13"},
+            "TT": {"I.8", "III.6"}},
+}
+# Thành phần hồ sơ năng lực (I.9) cần thể hiện theo quy mô
+I9_THEO_QUY_MO = {
+    "lon": list(I9_THANH_PHAN),
+    "hang_muc": ["Hồ sơ năng lực / kinh nghiệm", "Nhân sự (bổ nhiệm, bằng cấp, chứng chỉ)", "Máy móc, thiết bị thi công"],
+    "nho": ["Nhân sự (bổ nhiệm, bằng cấp, chứng chỉ)"],
+}
+
+# ---------------------------------------------------------------------------
+# NHẬN DIỆN NHÀ THẦU (vòng 1) – biểu thức trên chữ không dấu. Đọc ở tiêu đề, hạng mục, gói thầu,
+# tên nhà thầu, tên file trước; không thấy thì đọc phần đầu văn bản. Kết quả chỉ là gợi ý, người kiểm tra xác nhận.
+NT_LON = [r"tong thau", r"\bepc\b", r"thiet ke (va |- |, )?thi cong", r"design.{0,5}build", r"\bd ?& ?b\b", r"thau chinh",
+          r"phan ngam", r"tang ham", r"ket cau phan than", r"phan than", r"phan tho", r"toan bo cong trinh",
+          r"xay dung (toan bo|tong the)", r"ket cau (va|-) ?hoan thien", r"xay dung va hoan thien"]
+NT_HANG_MUC = [r"coc khoan nhoi", r"\bcoc\b", r"tuong vay", r"barrette", r"co dien", r"\bmep\b", r"\bm ?& ?e\b",
+               r"dien nhe", r"pccc|phong chay|chua chay", r"thang may", r"mat dung|facade|vach kinh|nhom kinh",
+               r"ha tang", r"dieu hoa|hvac|thong gio", r"cap thoat nuoc|cap nuoc|thoat nuoc", r"tram bien ap|trung the|ha the",
+               r"canh quan|san vuon", r"chong set|tiep dia", r"\bbms\b", r"kho lanh", r"nen (nha )?xuong",
+               r"ket cau thep|nha thep|thep tien che", r"duong noi bo|san duong", r"xu ly nuoc thai|\bxlnt\b", r"may phat",
+               r"dien (chieu sang|dong luc|tong the)"]
+NT_NHO = [r"son ba|\bson\b|\bba matit", r"hoan thien", r"camera|cctv", r"noi that", r"thach cao", r"op lat|lat nen|op tuong",
+          r"chong tham", r"bien (bang|hieu|quang cao)|\blogo\b", r"lan can|tay vin", r"\bcua\b", r"giay dan tuong",
+          r"san (go|nhua)", r"ve sinh cong nghiep", r"cay xanh", r"am thanh|\bloa\b", r"mai (che|ton)", r"kinh cuong luc",
+          r"wifi|mang lan|tong dai", r"rem cua|rem\b", r"cung cap( va)? lap dat", r"\blap dat\b"]
+NT_PHU = [r"nha thau phu", r"thau phu", r"\bntp\b", r"hop dong (thau )?phu\b"]
+
+# ---------------------------------------------------------------------------
+# VÒNG 2 – THÀNH PHẦN CỐT LÕI (rà soát sơ bộ). Mỗi thành phần:
+#   ap      : quy mô áp dụng ("all" hoặc tập con {"lon","hang_muc","nho"})
+#   thau_phu: chỉ hỏi khi nhà thầu là thầu phụ
+#   muc     : mục PL VII chấp nhận; loc = biểu thức bắt buộc khi khớp qua mục; pat = khớp trực tiếp trên dòng
+#   tep     : loại danh mục rời (parser.TEP_LOAI) được tính là có
+#   danh_muc: thành phần là một danh mục / quyển → cần danh mục chi tiết, không chỉ một dòng tên quyển
+#   chan    : thiếu là "thiếu hồ sơ cơ bản" (đề nghị bổ sung trước khi kiểm tra chi tiết)
+#   khong_chan: loại nghiệm thu mà thành phần không chặn (chỉ hỏi)
+BBNT_THEO_LOAI = {
+    "GD": ("Biên bản nghiệm thu giai đoạn / bộ phận", r"nghiem thu (hoan thanh )?(giai doan|bo phan)"),
+    "GT": ("Biên bản nghiệm thu hoàn thành gói thầu", r"hoan thanh goi thau|nghiem thu hoan thanh (phan viec|cong viec)"),
+    "HT": ("Biên bản nghiệm thu hoàn thành hạng mục / công trình",
+           r"nghiem thu hoan thanh (toan bo )?(hang muc|cong trinh)|dua vao su dung"),
+    "TT": ("Biên bản nghiệm thu khối lượng / công việc của đợt thanh toán",
+           r"nghiem thu khoi luong|xac nhan khoi luong|nghiem thu.{0,40}(dot|thanh toan)"),
+}
+THANH_PHAN_COT_LOI = [
+    dict(key="HD", ten="Hợp đồng thi công của nhà thầu (số, ngày, phụ lục)", ap="all", muc={"I.8"}, loc=r"hop dong",
+         pat=r"^hop dong|hop dong (thi cong|xay dung|so)", chan=True,
+         cau_hoi="Bổ sung hợp đồng (số, ngày) và các phụ lục của phần việc đang nghiệm thu."),
+    dict(key="NS", ten="Danh sách nhân sự tham gia dự án (bổ nhiệm chỉ huy trưởng, cán bộ kỹ thuật)", ap="all",
+         pat=r"danh sach (can bo|nhan su)|nhan su (tham gia|chu chot|thi cong|cong truong|ky thuat|chu chot)|bo nhiem|"
+             r"chi huy truong|ban chi huy|so do (to chuc|nhan su)|can bo (ky thuat|quan ly)|\bnhan su\b",
+         chan=True, cau_hoi="Bổ sung danh sách nhân sự tham gia (quyết định bổ nhiệm chỉ huy trưởng, cán bộ kỹ thuật, chứng chỉ)."),
+    dict(key="BBNT", ten="(theo loại nghiệm thu)", ap="all", muc=set(), chan=True,
+         cau_hoi="Bổ sung biên bản nghiệm thu của đợt/giai đoạn trình ký (số, ngày, thành phần ký)."),
+    dict(key="VL", ten="Danh mục biên bản nghiệm thu vật liệu, thiết bị đầu vào", ap="all", muc={"III.4"}, tep={"vat_lieu"},
+         pat=r"nghiem thu vat (lieu|tu)|vat (lieu|tu) dau vao|thiet bi dau vao", danh_muc=True, chan=True, khong_chan={"TT"},
+         cau_hoi="Bổ sung danh mục biên bản nghiệm thu vật liệu, thiết bị đầu vào (số biên bản, ngày, kèm CO/CQ)."),
+    dict(key="CV", ten="Danh mục biên bản nghiệm thu công việc", ap="all", muc={"III.6"}, tep={"ntcv"},
+         loc=r"cong viec|ntcv|bien ban|ho so (chat luong|nghiem thu)|nghiem thu", pat=r"nghiem thu cong viec|\bntcv\b",
+         danh_muc=True, chan=True,
+         cau_hoi="Bổ sung danh mục biên bản nghiệm thu công việc (số biên bản, ngày, phạm vi) của phần việc trình ký."),
+    dict(key="HC", ten="Danh mục bản vẽ hoàn công", ap="all", muc={"III.2"}, tep={"hoan_cong"}, pat=r"hoan cong",
+         danh_muc=True, chan=True, khong_chan={"TT"},
+         cau_hoi="Bổ sung danh mục bản vẽ hoàn công (số hiệu bản vẽ, ngày lập, người lập, xác nhận của TVGS)."),
+    dict(key="TN", ten="Danh mục kết quả thí nghiệm", ap={"lon", "hang_muc"}, muc={"III.5", "III.7"}, tep={"thi_nghiem"},
+         pat=r"thi nghiem", danh_muc=True, chan=False,
+         cau_hoi="Có danh mục kết quả thí nghiệm (số phiếu, ngày, đơn vị thí nghiệm) cho phần việc không?"),
+    dict(key="TP_PD", ten="Văn bản chủ đầu tư chấp thuận nhà thầu phụ", ap="all", thau_phu=True,
+         pat=r"(chap thuan|phe duyet|thong qua|dong y|chap nhan|lua chon)\W.{0,30}(nha )?thau phu|"
+             r"thau phu.{0,40}(chap thuan|phe duyet|duoc duyet|dong y)",
+         chan=True, cau_hoi="Bổ sung văn bản của chủ đầu tư chấp thuận (phê duyệt) nhà thầu phụ cho phần việc này."),
+    dict(key="TP_HDC", ten="Hợp đồng của tổng thầu / nhà thầu chính với chủ đầu tư", ap="all", thau_phu=True,
+         pat=r"hop dong.{0,80}(tong thau|thau chinh).{0,80}(chu dau tu|\bcdt\b)|"
+             r"hop dong.{0,80}(chu dau tu|\bcdt\b).{0,80}(tong thau|thau chinh)|hop dong (tong thau|thau chinh)",
+         loai_tru=r"thau phu", chan=True,
+         cau_hoi="Bổ sung hợp đồng giữa chủ đầu tư với tổng thầu / nhà thầu chính (số, ngày) làm căn cứ phạm vi thầu phụ."),
+    dict(key="GPXD", ten="Giấy phép xây dựng (hoặc căn cứ miễn phép)", ap={"lon"}, muc={"I.7"}, chan=False,
+         cau_hoi="Có Giấy phép xây dựng không? Nếu được miễn thì miễn theo trường hợp nào, có tài liệu thể hiện không?"),
+    dict(key="TK", ten="Quyết định phê duyệt thiết kế và danh mục bản vẽ thiết kế", ap={"lon", "hang_muc"}, muc={"II.3"},
+         tep={"thiet_ke"}, chan=False,
+         cau_hoi="Bổ sung số, ngày quyết định phê duyệt thiết kế (TKBVTC) và danh mục bản vẽ thiết kế của phần việc."),
+]
+
+# ---------------------------------------------------------------------------
+# VÒNG 1 – ngưỡng kiểm tra đầu vào file (sửa ở đây, không sửa mã)
+VONG1 = {
+    "dinh_dang_doc": ("docx", "xlsx", "xlsm", "pdf"),
+    "dinh_dang_cu": ("doc", "xls"),
+    "dung_luong_luu_y_mb": 10, "dung_luong_tra_lai_mb": 30,
+    "pdf_trang_luu_y": 40, "pdf_trang_tra_lai": 200, "pdf_trang_quet_toi_da": 60,
+    "chu_toi_thieu_moi_trang": 40,      # ít hơn → trang ảnh scan
+    "word_chu_toi_thieu": 150,           # Word có ảnh mà ít hơn số ký tự này → ảnh chụp/scan dán vào Word
+    "so_sheet_luu_y": 30,
+    "ocr_trang_toi_da": 15,
+}

@@ -48,9 +48,8 @@ SHEETS = [
     ("9. Nghiem thu - khac", "VẬN HÀNH, PCCC, TỒN TẠI, NGHIỆM THU HOÀN THÀNH, BÁO CÁO (PL VII – III.9 … III.16)", [
         ("VD", "III.10b", "Ví dụ: Biên bản nghiệm thu nội bộ hệ thống PCCC / văn bản của cơ quan PCCC", "", "", "", "", "Bản gốc", "", ""),
         ("VD", "III.13", "Ví dụ: Biên bản nghiệm thu hoàn thành hạng mục … (có thời điểm bảo hành, đánh giá PCCC)", "01/BBNT-HT", "", "", "", "Bản gốc", "", ""),
-        ("VD", "T.1", "Ví dụ: Báo cáo hoàn thành công tác giám sát (Phụ lục IVb NĐ 207)", "", "", "TVGS TEXO", "", "Bản gốc", "", ""),
     ], ["III.9", "III.10a", "III.10b", "III.10c", "III.10d", "III.10đ", "III.10e", "III.10g", "III.11", "III.12",
-        "III.13", "III.14", "III.15", "III.16", "T.1", "T.2", "T.3"]),
+        "III.13", "III.14", "III.15", "III.16", "T.2", "T.3"]),
 ]
 
 

@@ -15,7 +15,10 @@ import pandas as pd
 import streamlit as st
 
 from core import kb, llm
+from core import ocr as ocr_mod
 from core.checker import SEV_ICON, SEV_LABEL, ap_dung_ai, kiem_tra
+from core.report_vong import build_v1, build_v2
+from core.vong import V1_SEV, V2_THIEU, _chot_v1, tin_nhan, vong1, vong1_noi_dung, vong2
 from core.mau import tao_mau_xlsx
 from core.parser import danh_sach_sheet, doan_loai_nt, doc_danh_sach_vpdt, doc_file, doc_nhieu_file, doc_tu_ai, norm
 from core.report_docx import xuat_docx
@@ -25,7 +28,7 @@ APP_DIR = os.path.dirname(os.path.abspath(__file__))
 LOGO = os.path.join(APP_DIR, "assets", "logo_texo.png")
 MARK = os.path.join(APP_DIR, "assets", "logo_mark.png")
 SECRETS_FILE = os.path.join(APP_DIR, ".secrets_local.json")
-VERSION = "1.2 · 21/10/2026"
+VERSION = "2.1 · 14/11/2026"
 APP_NAME = "Kiểm tra Hồ sơ chất lượng dự án"
 
 st.set_page_config(page_title="TEXO · Kiểm tra Hồ sơ chất lượng dự án", page_icon=MARK if os.path.exists(MARK) else "📁",
@@ -165,29 +168,67 @@ with st.sidebar:
     else:
         st.info("Đang chạy bản KHÔNG AI.")
     st.divider()
-    st.caption(f"Phiên bản {VERSION}\nCăn cứ: NĐ 207/2026/NĐ-CP · Phụ lục VII")
+    st.caption(f"Phiên bản {VERSION} · Kiểm tra 3 vòng\nCăn cứ: NĐ 207/2026/NĐ-CP · Phụ lục VII")
+    st.caption("Văn bản pháp lý dẫn trong hồ sơ: kiểm tra bản mới nhất bằng công cụ TEXO Legal Reviewer.")
+    st.caption("Người xây dựng: Hoàng Đức Vũ – Trưởng phòng Kỹ thuật")
+
+
 
 
 # ============================================================================ main
 h1, h2 = st.columns([0.75, 0.25])
 with h1:
     st.markdown(f"## {APP_NAME}")
-    st.markdown('<div class="texo-band">Nạp <b>quyển danh mục hồ sơ</b> hoặc <b>nhiều danh mục rời</b> (pháp lý, thiết kế, vật liệu, '
-                'nghiệm thu công việc, hoàn công… theo từng đợt) – Word, PDF có chữ hoặc Excel, <b>không bắt buộc theo mẫu</b>. '
-                'Công cụ gộp lại thành một bộ, đối chiếu với <b>Phụ lục VII NĐ 207/2026</b>, chỉ ra mục còn thiếu, mục cần quyển hồ sơ '
-                'hay văn bản phê duyệt, đợt bị hụt và <b>mã hồ sơ trên VPĐT</b> của từng thành phần.</div>', unsafe_allow_html=True)
+    st.markdown('<div class="texo-band">Kiểm tra theo <b>3 vòng</b>: <b>① Đầu vào</b> – file đọc được chưa (scan, ảnh chụp, '
+                'file cũ, quá nặng) và nhà thầu là ai · <b>② Sơ bộ</b> – có đủ hồ sơ cơ bản chưa (hợp đồng, nhân sự, biên bản '
+                'nghiệm thu, danh mục NT vật liệu, NT công việc, hoàn công; thầu phụ thêm chấp thuận thầu phụ và HĐ thầu chính) · '
+                '<b>③ Chi tiết</b> – đối chiếu <b>Phụ lục VII NĐ 207/2026</b> trong phạm vi đúng với quy mô nhà thầu: '
+                'chỉ tổng thầu, thầu chính, phần ngầm, kết cấu phần thân mới phải rà đủ Phụ lục.</div>', unsafe_allow_html=True)
 
+ocr_ok, ocr_msg = ocr_mod.san_sang()
 c1, c2 = st.columns([0.55, 0.45])
 with c1:
-    st.markdown("#### ① Tài liệu cần kiểm tra")
+    st.markdown("#### Tài liệu cần kiểm tra")
     fs = st.file_uploader("Danh mục hồ sơ – một quyển, hoặc nhiều file rời (theo loại, theo đợt)",
-                          type=["docx", "pdf", "xlsx", "xlsm"], key="f_dm", accept_multiple_files=True,
-                          help="Không bắt buộc theo mẫu nào: công cụ đọc theo nội dung từng dòng. Có thể nạp cùng lúc danh mục pháp lý, "
-                               "thiết kế, thay đổi thiết kế, NT vật liệu đợt 1–2, NTCV đợt 1–3, hoàn công… và cả báo cáo đăng tải VPĐT.")
+                          type=["docx", "pdf", "xlsx", "xlsm", "doc", "xls"], key="f_dm", accept_multiple_files=True,
+                          help="Không bắt buộc theo mẫu nào: công cụ đọc theo nội dung từng dòng. Nộp bản Word/Excel gốc hoặc PDF xuất "
+                               "trực tiếp (có chữ); bản scan có chữ ký chỉ để lưu.")
     fs = fs or []
-    sheet_sel = {}
-    nhieu_sheet = []
-    for f in fs:
+    dung_ocr = False
+    if ocr_ok:
+        dung_ocr = st.checkbox("Thử đọc PDF scan bằng OCR (chậm hơn, độ chính xác thấp – phải đối chiếu lại)",
+                               value=False, help=ocr_msg)
+    else:
+        st.caption("PDF scan: máy chủ chưa có OCR – đề nghị đoàn gửi bản Word/Excel gốc của danh mục.")
+    m1, m2 = st.columns([0.55, 0.45])
+    with m1:
+        st.download_button("📥 Tải mẫu danh mục tham khảo (Excel)", data=_mau_xlsx(), use_container_width=True,
+                           file_name="Mau danh muc ho so chat luong - tham khao.xlsx",
+                           mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+    with m2:
+        st.caption("Mẫu chỉ để tham khảo, không bắt buộc. Nhà thầu nhỏ chỉ cần các thành phần cơ bản.")
+    with st.expander("Đối chiếu thêm (tùy chọn)"):
+        f_bc = st.file_uploader("Báo cáo đăng tải hồ sơ VPĐT của đoàn (.docx/.pdf/.xlsx)", type=["docx", "pdf", "xlsx"], key="f_bc")
+        f_vp = st.file_uploader("Danh sách hồ sơ xuất từ VPĐT (để kiểm tra mã có tồn tại)", type=["xlsx", "docx", "pdf"], key="f_vp")
+        st.caption("Báo cáo đăng tải nạp lẫn trong ô tài liệu cũng được – công cụ tự nhận ra và đưa sang phần đối chiếu.")
+
+# ------------------------------------------------------------------ vòng 1 (tự chạy khi nạp file)
+sig = tuple((f.name, f.size) for f in fs) + (("ocr", dung_ocr),)
+if fs and ss.get("v1_sig") != sig:
+    with st.spinner("Vòng 1 – kiểm tra đầu vào…"):
+        ss.v1 = vong1([(f.name, f.getvalue()) for f in fs], ocr=dung_ocr)
+    ss.v1_sig = sig
+    for x in ("doc", "doc_sig", "bc_auto", "v2", "v2_args", "R", "R_args", "ai"):
+        ss.pop(x, None)
+if not fs:
+    for x in ("v1", "v1_sig", "doc", "doc_sig", "bc_auto", "v2", "v2_args", "R", "R_args", "ai"):
+        ss.pop(x, None)
+v1 = ss.get("v1")
+doc_ok = [f for f, t in zip(fs, v1.tep) if t["doc_duoc"]] if v1 else []
+
+with c1:
+    sheet_sel, nhieu_sheet = {}, []
+    for f in doc_ok:
         if f.name.lower().endswith(("xlsx", "xlsm")):
             try:
                 all_sh = [x for x in danh_sach_sheet(f.getvalue()) if x not in ("_ds",)]
@@ -195,108 +236,203 @@ with c1:
                 st.error(f"Không đọc được danh sách sheet của {f.name}: {e}")
                 continue
             if len(all_sh) <= 1:
-                sheet_sel[f.name] = [None]  # file một sheet: đọc nguyên file
+                sheet_sel[f.name] = [None]
             else:
                 nhieu_sheet.append((f, all_sh))
-    box = st.expander(f"Chọn sheet của {len(nhieu_sheet)} file Excel nhiều sheet", expanded=len(fs) == 1) if nhieu_sheet else None
-    for f, all_sh in nhieu_sheet:
-        with box:
-            try:
+    if nhieu_sheet:
+        with st.expander(f"Chọn sheet của {len(nhieu_sheet)} file Excel nhiều sheet", expanded=len(fs) == 1):
+            for f, all_sh in nhieu_sheet:
                 la_mau = sum(1 for x in all_sh if x[:2].strip(". ").isdigit()) >= 3
                 mac_dinh = [x for x in all_sh if norm(x) not in ("huong dan",)] if la_mau else all_sh[:1]
                 sheet_sel[f.name] = st.multiselect(f"Sheet cần đọc – {f.name}", all_sh, default=mac_dinh, key=f"sh_{f.name}",
-                                                   help="File có nhiều sheet trùng nội dung (tổng hợp + từng nhà thầu): chỉ chọn sheet cần kiểm tra. "
-                                                        "Mỗi sheet được đọc như một danh mục riêng.")
-            except Exception as e:
-                st.error(f"Không đọc được danh sách sheet của {f.name}: {e}")
-    m1, m2 = st.columns([0.55, 0.45])
-    with m1:
-        st.download_button("📥 Tải mẫu danh mục tham khảo (Excel)", data=_mau_xlsx(), use_container_width=True,
-                           file_name="Mau danh muc ho so chat luong - tham khao.xlsx",
-                           mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
-    with m2:
-        st.caption("Mẫu chỉ để tham khảo, không bắt buộc. Dùng nguyên bộ, từng sheet, hoặc giữ mẫu riêng của đoàn đều được.")
-    with st.expander("Đối chiếu thêm (tùy chọn)"):
-        f_bc = st.file_uploader("Báo cáo đăng tải hồ sơ VPĐT của đoàn (.docx/.pdf/.xlsx)", type=["docx", "pdf", "xlsx"], key="f_bc")
-        f_vp = st.file_uploader("Danh sách hồ sơ xuất từ VPĐT (để kiểm tra mã có tồn tại)", type=["xlsx", "docx", "pdf"], key="f_vp")
-        st.caption("Báo cáo đăng tải nạp lẫn trong ô ① cũng được – công cụ tự nhận ra và đưa sang phần đối chiếu.")
-with c2:
-    st.markdown("#### ② Phạm vi nghiệm thu")
-    doc = None
-    bc_auto = None
-    if fs:
-        parts = []
-        for f in fs:
-            if f.name in sheet_sel:
-                for sh in sheet_sel[f.name]:
-                    parts.append((f"{f.name} › {sh}" if sh else f.name, f.name, f.getvalue(), sh))
-            else:
-                parts.append((f.name, f.name, f.getvalue(), None))
-        sig = tuple((p[0], len(p[2])) for p in parts)
-        if ss.get("doc_sig") != sig:
+                                                   help="File có nhiều sheet trùng nội dung (tổng hợp + từng nhà thầu): chỉ chọn sheet "
+                                                        "cần kiểm tra. Mỗi sheet được đọc như một danh mục riêng.")
+
+doc, bc_auto = None, None
+if v1 and doc_ok:
+    parts = []
+    for f in doc_ok:
+        if f.name in sheet_sel:
+            for sh in sheet_sel[f.name]:
+                parts.append((f"{f.name} › {sh}" if sh else f.name, f.name, f.getvalue(), sh))
+        else:
+            parts.append((f.name, f.name, f.getvalue(), None))
+    dsig = tuple((p[0], len(p[2])) for p in parts) + (("ocr", dung_ocr),)
+    if ss.get("doc_sig") != dsig:
+        with st.spinner("Đang đọc danh mục…"):
             if len(parts) == 1:
-                d0 = doc_file(parts[0][1], parts[0][2], sheets=[parts[0][3]] if parts[0][3] else None)
+                d0 = doc_file(parts[0][1], parts[0][2], sheets=[parts[0][3]] if parts[0][3] else None, ocr=dung_ocr)
                 ss.doc, ss.bc_auto = d0, None
             else:
-                ss.doc, ss.bc_auto, _tep = doc_nhieu_file(parts)
-            ss.doc_sig = sig
-            ss.pop("R", None)
-            ss.pop("ai", None)
-        doc = ss.doc
-        bc_auto = ss.get("bc_auto")
-        if doc.get("tep"):
-            st.caption(f"Đã nạp {len(doc['tep'])} danh mục: " + " · ".join(
-                f"{t['loai_label']}{' đợt ' + str(t['dot']) if t['dot'] else ''}" for t in doc["tep"]))
-    goi_y = doan_loai_nt(doc["meta"], doc["text"]) if doc else None
-    opts = list(kb.LOAI_NT.keys())
-    loai = st.radio("Loại nghiệm thu", opts, index=opts.index(goi_y) if goi_y in opts else 2,
-                    format_func=lambda k: kb.LOAI_NT[k] + ("  ← nhận diện từ tiêu đề" if k == goi_y else ""))
-    goi_y_vt = "phu" if (doc and doc["meta"].get("tong_thau")) else "chinh"
-    vai_tro = st.radio("Vai trò nhà thầu đang nghiệm thu", list(kb.VAI_TRO.keys()), index=0 if goi_y_vt == "chinh" else 1,
-                       format_func=lambda k: kb.VAI_TRO[k], horizontal=False,
-                       help="Tổng thầu / thầu chính: kiểm tra kỹ hồ sơ pháp lý dự án và nhà thầu. Thầu phụ / nhà thầu nhỏ: pháp lý dự án chỉ đối chiếu nếu có.")
-    co_ngay = st.checkbox("Nhập ngày nghiệm thu (để chọn nghị định và soát ngày tài liệu)")
-    ngay_nt = st.date_input("Ngày nghiệm thu", value=date.today(), format="DD/MM/YYYY") if co_ngay else None
-    chay = st.button("🔎 Kiểm tra", type="primary", use_container_width=True, disabled=doc is None)
+                ss.doc, ss.bc_auto, _tep = doc_nhieu_file(parts, ocr=dung_ocr)
+            v1.muc = [m for m in v1.muc if m.get("tep") or m.get("tong_hop")]  # bỏ kết quả nội dung lần đọc trước
+            _chot_v1(v1)
+            vong1_noi_dung(v1, ss.doc, " ".join(f.name for f in doc_ok))
+        ss.doc_sig = dsig
+        for x in ("v2", "v2_args", "R", "R_args", "ai"):
+            ss.pop(x, None)
+    doc, bc_auto = ss.doc, ss.get("bc_auto")
+elif v1 and not doc_ok:
+    vong1_noi_dung(v1, None)
 
+nd = (v1.nhan_dien if v1 else {}) or {}
+meta0 = (doc or {}).get("meta", {})
+info_phieu = dict(du_an=meta0.get("du_an", ""), nha_thau=meta0.get("nha_thau", "") or nd.get("nha_thau", ""),
+                  ho_so=fs[0].name if len(fs) == 1 else f"{len(fs)} file danh mục", nguoi=ss.get("nguoi", ""))
+
+# ------------------------------------------------------------------ phạm vi (xác nhận nhận diện)
+with c2:
+    st.markdown("#### Phạm vi kiểm tra")
+    if not v1:
+        st.info("Nạp danh mục ở bên trái – vòng 1 chạy ngay khi nạp file.")
+    goi_y = nd.get("loai_goi_y")
+    opts = list(kb.LOAI_NT.keys())
+    loai = st.radio("Loại nghiệm thu", opts, index=opts.index(goi_y) if goi_y in opts else 0,
+                    format_func=lambda k: kb.LOAI_NT[k] + ("  ← nhận diện từ tiêu đề" if k == goi_y else ""), disabled=not doc)
+    vt_opts = ["chinh", "phu"]
+    vai_tro = st.radio("Nhà thầu là", vt_opts, index=vt_opts.index(nd.get("vai_tro", "chinh")), horizontal=True,
+                       format_func=lambda k: {"chinh": "Tổng thầu / thầu chính", "phu": "Thầu phụ"}[k], disabled=not doc,
+                       help="Thầu phụ: hỏi thêm văn bản chấp thuận nhà thầu phụ và hợp đồng của tổng thầu / thầu chính với chủ đầu tư.")
+    qm_opts = list(kb.QUY_MO.keys())
+    quy_mo = st.radio("Quy mô nhà thầu – quyết định độ dài danh mục phải kiểm tra", qm_opts,
+                      index=qm_opts.index(nd.get("quy_mo", "lon")), format_func=lambda k: kb.QUY_MO[k], disabled=not doc)
+    if nd:
+        st.caption(f"Gợi ý tự động: {'thầu phụ' if nd['vai_tro'] == 'phu' else 'thầu chính'} ({nd['ly_do_vai_tro']}) · "
+                   f"{kb.QUY_MO_NGAN[nd['quy_mo']].lower()} ({nd['ly_do_quy_mo']}). Kiểm tra lại trước khi rà soát.")
+
+# ------------------------------------------------------------------ hiển thị 3 vòng
+st.markdown("---")
+v2 = ss.get("v2")
+R = ss.get("R")
+ICON_V = {"high": "🔴", "mid": "🟠", "ok": "🟢"}
+
+
+def _chip(lbl, kl, sev):
+    return f"{ICON_V.get(sev, '⚪')} **{lbl}** – {kl}" if kl else f"⚪ **{lbl}** – chưa chạy"
+
+
+s1, s2, s3 = st.columns(3)
+s1.markdown(_chip("Vòng 1 · Đầu vào", v1.ket_luan if v1 else "", V1_SEV.get(v1.ket_luan) if v1 else None))
+s2.markdown(_chip("Vòng 2 · Sơ bộ", v2.ket_luan if v2 else "", v2.sev if v2 else None))
+s3.markdown(_chip("Vòng 3 · Chi tiết", R["ket_luan"].split(" – ")[0] if R else "", R["ket_luan_sev"] if R else None))
+
+if not v1:
+    st.markdown("##### Ba vòng kiểm tra")
+    a, b, c = st.columns(3)
+    a.markdown("**① Kiểm tra đầu vào**  \nFile Word/Excel/PDF có chữ đọc được chưa; PDF scan, ảnh chụp dán vào Word, file .doc/.xls "
+               "đời cũ, file quá nặng, đặt mật khẩu được chỉ ra ngay kèm cách gửi lại. Bộ nhiều file: file lỗi bị loại, file đạt vẫn đi tiếp.")
+    b.markdown("**② Rà soát sơ bộ**  \nChỉ tìm thành phần cơ bản: hợp đồng, danh sách nhân sự, biên bản nghiệm thu, danh mục NT vật liệu, "
+               "NT công việc, bản vẽ hoàn công. Thầu phụ thêm chấp thuận thầu phụ, HĐ thầu chính – CĐT. Nhà thầu lớn thêm GPXD, thiết kế duyệt.")
+    c.markdown("**③ Kiểm tra chi tiết**  \nĐối chiếu Phụ lục VII theo đúng quy mô: tổng thầu / thầu chính / phần ngầm / phần thân rà đủ; "
+               "nhà thầu hạng mục và nhà thầu nhỏ chỉ các mục của phần việc mình làm – không bắt lập lại danh mục đủ Phụ lục.")
+    st.stop()
+
+
+def _tin_nhan_box(txt, key):
+    st.text_area("Tin nhắn gửi đoàn (chọn hết, sao chép, dán Zalo)", value=txt, key=key,
+                 height=min(420, 60 + 22 * txt.count("\n")))
+
+
+# ---- VÒNG 1
+with st.expander(f"① Vòng 1 – Kiểm tra đầu vào: {v1.ket_luan} · {len(v1.tep_doc_duoc)}/{len(v1.tep)} file đọc được",
+                 expanded=v1.tra_lai or (v2 is None and bool(v1.muc))):
+    st.dataframe(pd.DataFrame([{"File": t["ten"], "Định dạng": t["dinh_dang"], "Dung lượng (MB)": t["mb"],
+                                "Trang": str(t.get("so_trang") or ""), "Trang scan": str(t.get("trang_scan") or ""),
+                                "Sheet": str(t.get("so_sheet") or ""), "Kết luận": t["ket_luan"]} for t in v1.tep]),
+                 hide_index=True, use_container_width=True)
+    for m in v1.muc:
+        (st.error if m["muc"] == "Trả lại" else st.warning)(
+            f"{(m['tep'] + ': ') if m.get('tep') else ''}{m['noi_dung']}  \n➜ {m['xu_ly']}")
+    if not v1.muc:
+        st.success("Các file đều đọc được.")
+    d1, d2 = st.columns(2)
+    with d1:
+        st.download_button("⬇️ Phiếu vòng 1 (Word)", data=build_v1(v1, info_phieu), use_container_width=True,
+                           file_name=f"Phieu vong 1 - kiem tra dau vao - {datetime.now():%Y%m%d}.docx",
+                           mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document")
+    with d2:
+        if v1.tra_lai or v1.muc:
+            _tin_nhan_box(tin_nhan(v1, None, info_phieu), "tn1")
+if v1.tra_lai:
+    st.error("Vòng 1: TRẢ LẠI – chưa đọc được danh mục nào. Gửi phiếu / tin nhắn ở trên cho đoàn để nộp lại bản đọc được.")
+    st.stop()
 if doc is not None:
     for w in doc["warnings"]:
-        st.warning(w)
-    if not doc["rows"]:
-        st.error("Chưa đọc được dòng nào trong danh mục.")
-        if ai_ready and doc.get("text"):
-            if st.button("Nhờ AI trích danh mục từ văn bản"):
-                with st.spinner("AI đang trích xuất…"):
-                    res = llm.ai_trich_xuat(provider, model, key, doc["text"], base_url)
-                if res["ok"]:
-                    ss.doc = doc_tu_ai(res["data"])
-                    st.rerun()
-                else:
-                    st.error(res["error"])
+        st.caption("⚠ " + w)
+    if not doc["rows"] and ai_ready and doc.get("text"):
+        if st.button("Nhờ AI trích danh mục từ văn bản"):
+            with st.spinner("AI đang trích xuất…"):
+                res = llm.ai_trich_xuat(provider, model, key, doc["text"], base_url)
+            if res["ok"]:
+                ss.doc = doc_tu_ai(res["data"])
+                st.rerun()
+            else:
+                st.error(res["error"])
 
-if chay and doc is not None and doc["rows"]:
+# ---- VÒNG 2
+v2_args = dict(loai=loai, vai_tro=vai_tro, quy_mo=quy_mo)
+if v2 is not None and ss.get("v2_args") != v2_args:
+    for x in ("v2", "v2_args", "R", "R_args", "ai"):
+        ss.pop(x, None)
+    v2, R = None, None
+if st.button("② Rà soát sơ bộ – thành phần cơ bản", type="primary" if v2 is None else "secondary",
+             use_container_width=True, disabled=not (doc and doc["rows"])):
+    ss.v2 = vong2(doc, loai, vai_tro, quy_mo)
+    ss.v2_args = v2_args
+    for x in ("R", "R_args", "ai"):
+        ss.pop(x, None)
+    st.rerun()
+if v2 is not None:
+    with st.expander(f"② Vòng 2 – Rà soát sơ bộ: {v2.ket_luan}", expanded=R is None):
+        st.markdown(f'<div class="kl {v2.sev}">{ICON_V.get(v2.sev, "")} {v2.ket_luan}. {v2.nhan_xet}</div>', unsafe_allow_html=True)
+        tt_lab = {"co": "🟢 Có", "thieu_dm": "🟠 Chưa có danh mục chi tiết"}
+        st.dataframe(pd.DataFrame([{"Thành phần": c["ten"], "Bắt buộc": "✔" if c["chan"] else "",
+                                    "Hiện trạng": tt_lab.get(c["trang_thai"], "🔴 Chưa thấy" if c["chan"] else "🟠 Chưa thấy"),
+                                    "Số dòng": c["so_dong"], "Ví dụ dòng tìm thấy": "; ".join(c["mau"][:2])}
+                                   for c in v2.thanh_phan]), hide_index=True, use_container_width=True)
+        d1, d2 = st.columns(2)
+        with d1:
+            st.download_button("⬇️ Phiếu vòng 2 (Word)", data=build_v2(v2, v1, info_phieu), use_container_width=True,
+                               file_name=f"Phieu vong 2 - ra soat so bo - {datetime.now():%Y%m%d}.docx",
+                               mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document")
+            st.caption(f"Vòng 3 sẽ xét {len(v2.pham_vi_v3['B'])} mục bắt buộc, {len(v2.pham_vi_v3['D'])} mục đối chiếu "
+                       f"({kb.QUY_MO_NGAN[quy_mo].lower()}).")
+        with d2:
+            _tin_nhan_box(tin_nhan(v1, v2, info_phieu), "tn2")
+
+# ---- VÒNG 3
+co_ngay = False
+ngay_nt = None
+chay = False
+if v2 is not None:
+    e1, e2 = st.columns([0.5, 0.5])
+    with e1:
+        co_ngay = st.checkbox("Nhập ngày nghiệm thu (để chọn nghị định và soát ngày tài liệu)")
+        ngay_nt = st.date_input("Ngày nghiệm thu", value=date.today(), format="DD/MM/YYYY") if co_ngay else None
+    with e2:
+        cho_phep = True
+        if v2.ket_luan == V2_THIEU:
+            cho_phep = st.checkbox("Vẫn kiểm tra chi tiết dù còn thiếu hồ sơ cơ bản", value=False)
+        chay = st.button("③ Kiểm tra chi tiết – Phụ lục VII", type="primary" if R is None else "secondary",
+                         use_container_width=True, disabled=not cho_phep)
+if chay:
     bc = doc_file(f_bc.name, f_bc.getvalue()) if f_bc is not None else bc_auto
     vp = doc_danh_sach_vpdt(f_vp.name, f_vp.getvalue()) if f_vp is not None else None
-    ss.R = kiem_tra(doc, loai, ngay_nt=ngay_nt, bc_dang_tai=bc, ds_vpdt=vp, vai_tro=vai_tro)
-    ss.R_args = dict(loai=loai, ngay_nt=ngay_nt, bc=bc, vp=vp, vai_tro=vai_tro)
+    with st.spinner("Vòng 3 – đối chiếu Phụ lục VII…"):
+        ss.R = kiem_tra(doc, loai, ngay_nt=ngay_nt, bc_dang_tai=bc, ds_vpdt=vp, vai_tro=vai_tro, quy_mo=quy_mo)
+    ss.R["vong"] = {"v1": v1.ket_luan, "v2": v2.ket_luan}
+    ss.R_args = dict(loai=loai, ngay_nt=ngay_nt, bc=bc, vp=vp, vai_tro=vai_tro, quy_mo=quy_mo)
     ss.pop("ai", None)
+    st.rerun()
 
 R = ss.get("R")
 if not R:
-    st.markdown("---")
-    st.markdown("##### Công cụ kiểm tra những gì?")
-    a, b, c = st.columns(3)
-    a.markdown("**Đủ thành phần**  \nĐối chiếu từng mục Phụ lục VII theo loại nghiệm thu (giai đoạn, gói thầu, hoàn thành hạng mục/công trình): "
-               "mục bắt buộc nào chưa có, mục “(nếu có)” chưa ghi “Không có”.")
-    b.markdown("**Đúng hình thức**  \nMục là *văn bản* phải có số/ngày; mục cần *phê duyệt* phải có văn bản phê duyệt; "
-               "mục là *quyển hồ sơ* (hoàn công, NTCV, vật liệu, thí nghiệm) phải có danh mục chi tiết.")
-    c.markdown("**Truy được trên VPĐT**  \nTừng dòng có mã HS chưa, mã nào gom nhiều mục (nén chung một cục), mã trùng, sai định dạng; "
-               "đối chiếu với báo cáo đăng tải của đoàn.")
     st.stop()
 
 # ============================================================================ kết quả
 k = R["kpi"]
-st.markdown("---")
+st.markdown(f"#### ③ Vòng 3 – Kiểm tra chi tiết · {kb.QUY_MO_NGAN[R['quy_mo']]}"
+            f"{' · thầu phụ' if R.get('vai_tro') == 'phu' else ''} · {R['loai_nt_label']}")
 st.markdown(f'<div class="kl {R["ket_luan_sev"]}">{SEV_ICON.get(R["ket_luan_sev"], "")} {R["ket_luan"]}</div>', unsafe_allow_html=True)
 m = st.columns(6)
 m[0].metric("Mục bắt buộc có", f"{k['muc_B_co']}/{k['muc_B']}", f"{k['ty_le_B']}%", delta_color="off")
@@ -429,7 +565,9 @@ with tabs[5]:
             if res.get("ok"):
                 n = ap_dung_ai(ss.doc["rows"], res["data"].get("phan_loai_bo_sung"))
                 a = ss.R_args
-                ss.R = kiem_tra(ss.doc, a["loai"], ngay_nt=a["ngay_nt"], bc_dang_tai=a["bc"], ds_vpdt=a["vp"], vai_tro=a["vai_tro"])
+                ss.R = kiem_tra(ss.doc, a["loai"], ngay_nt=a["ngay_nt"], bc_dang_tai=a["bc"], ds_vpdt=a["vp"], vai_tro=a["vai_tro"],
+                                quy_mo=a["quy_mo"])
+                ss.R["vong"] = {"v1": ss.v1.ket_luan, "v2": ss.v2.ket_luan}
                 ss.ai_n = n
                 st.rerun()
         res = ss.get("ai")

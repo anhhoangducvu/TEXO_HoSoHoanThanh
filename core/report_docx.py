@@ -24,8 +24,8 @@ LOGO = os.path.join(os.path.dirname(__file__), "..", "assets", "logo_texo.png")
 
 FONT = "Times New Roman"
 EMOJI_FONT = "Segoe UI Emoji"
-CW = 9638  # bề rộng nội dung A4 dọc, lề 2,0 cm
-CW_L = 14570  # A4 ngang
+CW = 9071  # bề rộng nội dung A4 dọc – lề trên 20 mm, dưới 20 mm, trái 30 mm, phải 20 mm
+CW_L = 14003  # A4 ngang
 NAVY = RGBColor(0x1F, 0x38, 0x64)
 BLUE = "2E5496"
 GREY = RGBColor(0x59, 0x59, 0x59)
@@ -196,13 +196,28 @@ def table(doc, headers, rows, widths, size=10, sev_cols=None, zebra=True):
     return t
 
 
+
+def _field_runs(par, instr, fmt, placeholder="1"):
+    """Chèn field Word (PAGE / NUMPAGES) đủ 5 phần: begin – instrText – separate – kết quả – end.
+    Mọi run mang cùng định dạng (cỡ, màu, font) để Word/LibreOffice khi cập nhật số trang
+    không trả về cỡ chữ mặc định của kiểu Normal (lỗi số trang to gấp ~1,5 lần)."""
+    import copy as _copy
+    r0 = par.add_run(); fmt(r0)
+    rpr = r0._r.find(qn("w:rPr"))
+    def _nr():
+        r = par.add_run()
+        if rpr is not None:
+            r._r.insert(0, _copy.deepcopy(rpr))
+        return r
+    b = OxmlElement("w:fldChar"); b.set(qn("w:fldCharType"), "begin"); r0._r.append(b)
+    r = _nr(); i = OxmlElement("w:instrText"); i.set(qn("xml:space"), "preserve"); i.text = f" {instr} "; r._r.append(i)
+    r = _nr(); s = OxmlElement("w:fldChar"); s.set(qn("w:fldCharType"), "separate"); r._r.append(s)
+    r = _nr(); t = OxmlElement("w:t"); t.text = placeholder; r._r.append(t)
+    r = _nr(); e = OxmlElement("w:fldChar"); e.set(qn("w:fldCharType"), "end"); r._r.append(e)
+    return r0
+
 def _pagefield(p):
-    r = p.add_run()
-    a = OxmlElement("w:fldChar"); a.set(qn("w:fldCharType"), "begin")
-    i = OxmlElement("w:instrText"); i.set(qn("xml:space"), "preserve"); i.text = "PAGE"
-    z = OxmlElement("w:fldChar"); z.set(qn("w:fldCharType"), "end")
-    r._r.append(a); r._r.append(i); r._r.append(z)
-    _font(r, 9, color=GREY)
+    return _field_runs(p, "PAGE", lambda r: _font(r, 9, color=GREY))
 
 
 def _pborder(p, edge="bottom", color=BLUE, sz=6, sp=4):
@@ -246,7 +261,7 @@ def _header_footer(sec, cw, title):
     fp = ftr.paragraphs[0]
     fp.text = ""
     fp.paragraph_format.tab_stops.add_tab_stop(Twips(cw), WD_TAB_ALIGNMENT.RIGHT)
-    _font(fp.add_run("Tài liệu nội bộ · Phòng Kỹ thuật TEXO · Căn cứ NĐ 207/2026/NĐ-CP, Phụ lục VII"), 8, color=GREY)
+    _font(fp.add_run("Tài liệu nội bộ · Căn cứ NĐ 207/2026/NĐ-CP, Phụ lục VII · Người xây dựng: Hoàng Đức Vũ"), 8, color=GREY)
     r = fp.add_run(); r._r.append(OxmlElement("w:tab"))
     _font(fp.add_run("Trang "), 9, color=GREY)
     _pagefield(fp)
@@ -256,8 +271,8 @@ def _header_footer(sec, cw, title):
 def _setup(doc):
     sec = doc.sections[0]
     sec.page_width, sec.page_height = Twips(11906), Twips(16838)
-    sec.left_margin = sec.right_margin = Twips(1134)
-    sec.top_margin, sec.bottom_margin = Twips(1300), Twips(1000)
+    sec.left_margin, sec.right_margin = Twips(1701), Twips(1134)
+    sec.top_margin, sec.bottom_margin = Twips(1134), Twips(1134)
     st = doc.styles["Normal"]
     st.font.name = FONT
     st.font.size = Pt(12)
@@ -270,8 +285,8 @@ def _landscape(doc):
     sec = doc.add_section()
     sec.orientation = WD_ORIENT.LANDSCAPE
     sec.page_width, sec.page_height = Twips(16838), Twips(11906)
-    sec.left_margin = sec.right_margin = Twips(1134)
-    sec.top_margin, sec.bottom_margin = Twips(1200), Twips(900)
+    sec.left_margin, sec.right_margin = Twips(1701), Twips(1134)
+    sec.top_margin, sec.bottom_margin = Twips(1134), Twips(1134)
     _header_footer(sec, CW_L, "Phụ lục danh mục đã đọc")
     return sec
 
@@ -285,6 +300,7 @@ def xuat_docx(R, nguoi_kiem_tra="", ten_file="", ai=None):
     k = R["kpi"]
 
     para(doc, "", sa=2)
+    para(doc, "PHÒNG KỸ THUẬT · VÒNG 3 – KIỂM TRA CHI TIẾT", 11, True, RGBColor.from_string(BLUE), align=WD_ALIGN_PARAGRAPH.CENTER, sa=2)
     para(doc, "PHIẾU KIỂM TRA HỒ SƠ CHẤT LƯỢNG DỰ ÁN", 17, True, NAVY, align=WD_ALIGN_PARAGRAPH.CENTER, sa=2)
     para(doc, R["loai_nt_label"], 12, it=True, align=WD_ALIGN_PARAGRAPH.CENTER, sa=2)
     sub = f"Ngày kiểm tra: {now:%d/%m/%Y} · Căn cứ: {R['nghi_dinh']} · File: {ten_file}"
@@ -340,7 +356,13 @@ def xuat_docx(R, nguoi_kiem_tra="", ten_file="", ai=None):
            ("tong_thau", "Tổng thầu"), ("nha_thau", "Nhà thầu thi công"), ("hop_dong", "Hợp đồng")]
     rows = [(l, meta.get(key) or "– chưa thể hiện –") for key, l in lab if meta.get(key) or key in ("du_an", "chu_dau_tu", "nha_thau")]
     rows.append(("Loại nghiệm thu", R["loai_nt_label"]))
-    rows.append(("Vai trò nhà thầu", kb.VAI_TRO.get(R.get("vai_tro", "chinh"), "")))
+    rows.append(("Vai trò nhà thầu", "Thầu phụ" if R.get("vai_tro") == "phu" else "Tổng thầu / thầu chính"))
+    rows.append(("Quy mô – phạm vi kiểm tra", kb.QUY_MO.get(R.get("quy_mo", "lon"), "")))
+    vg = R.get("vong") or {}
+    if vg.get("v1"):
+        rows.append(("Vòng 1 – kiểm tra đầu vào", vg["v1"]))
+    if vg.get("v2"):
+        rows.append(("Vòng 2 – rà soát sơ bộ", vg["v2"]))
     if R.get("ngay_nt"):
         rows.append(("Ngày nghiệm thu (dự kiến)", R["ngay_nt"].strftime("%d/%m/%Y")))
     kieu = {"DANH_MUC": "Danh mục hồ sơ", "BAO_CAO_DANG_TAI": "Báo cáo đăng tải hồ sơ VPĐT (nội bộ)"}.get(R["info"].get("kieu"), "Khác")
@@ -444,6 +466,8 @@ def xuat_docx(R, nguoi_kiem_tra="", ten_file="", ai=None):
 
     # Ký
     para(doc, "", sa=6)
+    para(doc, "Văn bản pháp lý, tiêu chuẩn dẫn trong hồ sơ: kiểm tra hiệu lực bản mới nhất bằng công cụ TEXO Legal Reviewer "
+              "trước khi trình ký.", 9.5, it=True, color=GREY, sa=4)
     para(doc, f"{CITY}, ngày {now:%d} tháng {now:%m} năm {now:%Y}", 11.5, it=True, align=WD_ALIGN_PARAGRAPH.RIGHT, sa=4)
     st = doc.add_table(rows=1, cols=2)
     _borders(st, none=True)
