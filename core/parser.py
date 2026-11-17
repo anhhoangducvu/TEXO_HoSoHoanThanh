@@ -276,29 +276,49 @@ def tables_pdf(data):
     return tables, "\n".join(texts), {"so_trang": n, "scan": scan}
 
 
+XLSX_COT_TOI_DA = 60      # danh mục hồ sơ không cần quá 60 cột
+XLSX_DONG_TOI_DA = 10000
+
+
 def tables_xlsx(data, sheets=None):
+    """Đọc Excel ở chế độ luồng (read_only) và bỏ qua vùng dữ liệu ảo: file copy qua nhiều nơi hay có ô định dạng rỗng
+    kéo tới cột XFD / dòng 1.048.576 – đọc kiểu thường sẽ tạo hàng chục triệu ô, ngốn vài GB RAM và làm sập máy chủ."""
     import openpyxl
-    wb = openpyxl.load_workbook(io.BytesIO(data), data_only=True)
+    wb = openpyxl.load_workbook(io.BytesIO(data), data_only=True, read_only=True, keep_links=False)
     tables, texts, names = [], [], []
     for ws in wb.worksheets:
         if sheets and ws.title not in sheets:
             continue
+        try:
+            ws.reset_dimensions()  # không tin vùng <dimension> ghi trong file
+        except Exception:
+            pass
         rows = []
         for r in ws.iter_rows(values_only=True):
-            if any(c not in (None, "") for c in r):
-                rows.append(list(r))
+            r = list(r[:XLSX_COT_TOI_DA])
+            while r and r[-1] in (None, ""):
+                r.pop()
+            if r and any(c not in (None, "") for c in r):
+                rows.append(r)
+                if len(rows) >= XLSX_DONG_TOI_DA:
+                    break
         if rows:
+            w = max(len(r) for r in rows)
+            rows = [r + [None] * (w - len(r)) for r in rows]
             tables.append(rows)
             names.append(ws.title)
             texts.append("\n".join(" ".join(clean(c) for c in r if c not in (None, "")) for r in rows[:15]))
-    return tables, "\n".join(texts), {"so_trang": None, "scan": False, "sheets": [w.title for w in wb.worksheets],
-                                      "sheets_doc": names}
+    all_sheets = [w.title for w in wb.worksheets]
+    wb.close()
+    return tables, "\n".join(texts), {"so_trang": None, "scan": False, "sheets": all_sheets, "sheets_doc": names}
 
 
 def danh_sach_sheet(data):
     import openpyxl
-    wb = openpyxl.load_workbook(io.BytesIO(data), read_only=True)
-    return [w.title for w in wb.worksheets]
+    wb = openpyxl.load_workbook(io.BytesIO(data), read_only=True, keep_links=False)
+    out = [w.title for w in wb.worksheets]
+    wb.close()
+    return out
 
 
 # ----------------------------------------------------------------------------- dòng
@@ -315,6 +335,24 @@ def _cap_do(stt):
     if re.fullmatch(r"[a-zđ]\)?", s):
         return 3
     return None
+
+
+def _chinh_cot_ma(local_map, body):
+    """Cột tên 'Mã hồ sơ' nhưng giá trị không phải mã VPĐT (HS.yyyy.nnnn) mà là số hiệu biên bản của nhà thầu
+    (VD 'TB.NTCVXD.MONG-NLV.002') → coi là cột số hiệu, không báo sai định dạng mã VPĐT."""
+    j = local_map.get("ma")
+    if j is None:
+        return local_map
+    vals = [clean(r[j]) for r in body if j < len(r) and clean(r[j])]
+    if len(vals) < 3:
+        return local_map
+    trung = sum(1 for v in vals if tim_ma(v))
+    if trung < 0.2 * len(vals):
+        local_map = dict(local_map)
+        jm = local_map.pop("ma")
+        if "so_vb" not in local_map:
+            local_map["so_vb"] = jm
+    return local_map
 
 
 def rows_from_tables(tables, meta, sheet_names=None):
@@ -347,6 +385,7 @@ def rows_from_tables(tables, meta, sheet_names=None):
                 local_map = suy_dien_cot(t)
                 if not local_map:
                     continue
+        local_map = _chinh_cot_ma(local_map, t[start:])
         colmap = local_map
         sheet = sheet_names[ti] if sheet_names and ti < len(sheet_names) else ""
         for r in t[start:]:
@@ -508,8 +547,10 @@ def doc_file(name, data, sheets=None, ocr=False, ocr_max=15):
 
 
 def doan_loai_nt(meta, text):
-    """Đoán loại nghiệm thu từ tiêu đề: HT / GT / GD / None."""
+    """Đoán loại nghiệm thu từ tiêu đề: TT / HT / GT / GD / None (IPC = đợt thanh toán)."""
     t = norm((meta.get("tieu_de") or "") + " " + str(text or "")[:400])
+    if re.search(r"\bipc\s?\d|thanh toan (dot|lan)|de nghi thanh toan|ho so thanh toan", t):
+        return "TT"
     if re.search(r"hoan thanh (hang muc|cong trinh)|dua vao su dung|quyet toan", t):
         return "HT"
     if re.search(r"hoan thanh goi thau", t):

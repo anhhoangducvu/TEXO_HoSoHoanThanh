@@ -35,6 +35,7 @@ def nhan_dien_nha_thau(doc, ten_file=""):
     dau = norm(" ".join([meta.get("tieu_de", ""), meta.get("goi_thau", ""), meta.get("hang_muc", ""),
                          meta.get("nha_thau", ""), ten_file or "", tep]).replace("_", " ").replace("-", " "))
     than = norm(str((doc or {}).get("text", ""))[:2500])
+    toan_bo = norm(" ".join(str(r.get("noi_dung", "")) for r in (doc or {}).get("rows") or [])[:200000])
     # vai trò
     vt, ly_vt = "chinh", ""
     if meta.get("tong_thau"):
@@ -58,6 +59,10 @@ def nhan_dien_nha_thau(doc, ten_file=""):
         if qm:
             chac = nguon != "nội dung danh mục"
             break
+    # danh mục trải nhiều phần việc (cọc + móng + kết cấu + hoàn thiện…) → nhiều khả năng thầu chính / tổng thầu
+    nhom = [g for g, p in kb.NT_NHOM_VIEC.items() if _re(p).search(toan_bo)]
+    if len(nhom) >= 3 and qm != "lon" and not (chac and qm):
+        qm, ly_qm, chac = "lon", "danh mục gồm nhiều phần việc: " + ", ".join(nhom[:5]), False
     if not qm:
         qm, ly_qm, chac = ("hang_muc" if vt == "phu" else "lon"), "chưa thấy phạm vi công việc – cần người kiểm tra chọn", False
     return dict(vai_tro=vt, quy_mo=qm, nha_thau=meta.get("nha_thau", ""), pham_vi=pham_vi_raw,

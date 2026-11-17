@@ -152,7 +152,8 @@ MUC = [
          nguyen_van="Các biên bản nghiệm thu công việc xây dựng, nghiệm thu bộ phận hoặc giai đoạn (nếu có) trong quá trình thi công.",
          hinh_thuc="QUYEN", can_dm_kem=True, neu_co=False, ap_dung={"GD": "B", "HT": "B"},
          tu_khoa=[r"nghiem thu cong viec", r"\bntcv\b", r"nghiem thu bo phan", r"nghiem thu giai doan", r"ho so chat luong",
-                  r"ho so nghiem thu", r"bien ban nghiem thu", r"hoan thanh goi thau", r"nghiem thu noi bo"],
+                  r"ho so nghiem thu", r"bien ban nghiem thu", r"hoan thanh goi thau", r"nghiem thu noi bo",
+                  r"phieu (yeu cau|kiem tra)", r"bien ban kiem tra", r"yeu cau nghiem thu"],
          loai_tru=[r"hoan thanh (hang muc|cong trinh|dua vao su dung)", r"thanh lap", r"quyet dinh", r"nhan su", r"vat (lieu|tu)", r"thiet ke", r"khao sat", r"pccc|phong chay"]),
     dict(code="III.7", ten="Thí nghiệm đối chứng, kiểm định, thử tải",
          nguyen_van="Kết quả thí nghiệm đối chứng, kiểm định chất lượng công trình, thử nghiệm khả năng chịu lực kết cấu (nếu có).",
@@ -235,7 +236,7 @@ MUC = [
          hinh_thuc="QUYEN", can_dm_kem=False, neu_co=True, ap_dung={"GD": "Đ", "HT": "Đ"},
          tu_khoa=[r"ban giao (moc|mat bang|tim|coc)", r"an toan lao dong", r"\batld\b", r"\batvsld\b", r"ve sinh moi truong",
                   r"\bvsmt\b", r"bao hiem", r"cong nhan", r"may moc", r"noi quy", r"tieu lenh", r"phong chay|pccc", r"bao ho",
-                  r"huan luyen", r"so cap cuu", r"lut bao", r"cuu ho", r"phieu yeu cau nghiem thu", r"anh (hien truong|thi cong)",
+                  r"huan luyen", r"so cap cuu", r"lut bao", r"cuu ho", r"anh (hien truong|thi cong)",
                   r"bao cao (tuan|thang|dinh ky)", r"bao cao .*(tu van giam sat|tvgs|cong tac giam sat)"]),
     # ------------------------------------------------------------------ T (bổ sung P.KT)
     dict(code="T.2", ten="Báo cáo hoàn thành của nhà thầu thi công",
@@ -438,6 +439,10 @@ NT_NHO = [r"son ba|\bson\b|\bba matit", r"hoan thien", r"camera|cctv", r"noi tha
           r"chong tham", r"bien (bang|hieu|quang cao)|\blogo\b", r"lan can|tay vin", r"\bcua\b", r"giay dan tuong",
           r"san (go|nhua)", r"ve sinh cong nghiep", r"cay xanh", r"am thanh|\bloa\b", r"mai (che|ton)", r"kinh cuong luc",
           r"wifi|mang lan|tong dai", r"rem cua|rem\b", r"cung cap( va)? lap dat", r"\blap dat\b"]
+# Nhóm phần việc – danh mục chứa từ 3 nhóm trở lên coi như thầu chính / tổng thầu (gợi ý, người kiểm tra xác nhận)
+NT_NHOM_VIEC = {"cọc": r"\bcoc\b", "móng": r"\bmong\b|dai mong|giang mong", "kết cấu thân": r"\bcot\b|\bdam\b|\bsan\b|vach|cau thang",
+                "xây trát": r"\bxay\b|\btrat\b", "hoàn thiện": r"son ba|op lat|\bson\b|tran thach cao|hoan thien",
+                "cơ điện": r"co dien|\bdien\b|cap thoat nuoc|dieu hoa|pccc", "mái": r"\bmai\b|chong tham mai"}
 NT_PHU = [r"nha thau phu", r"thau phu", r"\bntp\b", r"hop dong (thau )?phu\b"]
 
 # ---------------------------------------------------------------------------
@@ -506,5 +511,8 @@ VONG1 = {
     "chu_toi_thieu_moi_trang": 40,      # ít hơn → trang ảnh scan
     "word_chu_toi_thieu": 150,           # Word có ảnh mà ít hơn số ký tự này → ảnh chụp/scan dán vào Word
     "so_sheet_luu_y": 30,
+    "excel_cot_ao": 200, "excel_dong_ao": 50000,   # vùng <dimension> vượt ngưỡng → vùng định dạng thừa
+    "excel_ten_vung": 300,                          # số tên vùng (Name) rác
+    "excel_xml_tra_lai_mb": 150,                    # nội dung sheet giải nén vượt ngưỡng → trả lại
     "ocr_trang_toi_da": 15,
 }

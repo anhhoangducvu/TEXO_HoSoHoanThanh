@@ -96,6 +96,7 @@ def _kiem_ooxml(name, data, ext, add, ts):
         if any(n.endswith("vbaProject.bin") for n in names):
             add(LUU_Y, "File Excel có macro (VBA) – công cụ bỏ qua macro, chỉ đọc giá trị ô.",
                 "Danh mục không cần macro; nên lưu .xlsx thường.")
+        wb = ""
         try:
             wb = z.read("xl/workbook.xml").decode("utf-8", "ignore")
             n_sheet = len(re.findall(r"<sheet\s", wb))
@@ -107,10 +108,51 @@ def _kiem_ooxml(name, data, ext, add, ts):
             chu = sum(len(x) for x in re.findall(r"<t(?:\s[^>]*)?>([^<]*)</t>",
                                                  z.read("xl/sharedStrings.xml").decode("utf-8", "ignore")))
         ts["so_ky_tu"] = chu
+        _kiem_excel_cau_truc(z, names, wb, add, ts)
         if n_sheet > kb.VONG1["so_sheet_luu_y"]:
             add(LUU_Y, f"File có {n_sheet} sheet – nên chọn đúng sheet danh mục khi kiểm tra.", "Xóa sheet nháp, sheet không dùng.")
         if chu < 40 and media:
             add(TRA_LAI, "File Excel chỉ chứa ảnh chụp / ảnh scan – không có chữ trong ô.", "Gửi bản Excel gốc gõ chữ trong ô.")
+
+
+def _cot_so(ref):
+    col = re.match(r"([A-Z]+)", ref or "")
+    n = 0
+    for ch in (col.group(1) if col else ""):
+        n = n * 26 + ord(ch) - 64
+    return n
+
+
+def _kiem_excel_cau_truc(z, names, wb_xml, add, ts):
+    """Vùng dữ liệu ảo, tên vùng (Name) rác, liên kết ngoài – nguyên nhân hay gặp làm file nặng, máy chủ treo."""
+    sheet_xml = [n for n in names if n.startswith("xl/worksheets/") and n.endswith(".xml")]
+    tong = sum(z.getinfo(n).file_size for n in sheet_xml)
+    ts["xml_mb"] = _mb(tong)
+    if tong > kb.VONG1["excel_xml_tra_lai_mb"] * 1048576:
+        add(TRA_LAI, f"Nội dung các sheet giải nén ra {_mb(tong)} MB – quá lớn so với một danh mục.",
+            "Chỉ giữ sheet danh mục; xóa sheet tính toán, ảnh, dữ liệu thừa rồi lưu lại.")
+        return
+    ao = []
+    for n in sheet_xml:
+        with z.open(n) as f:
+            head = f.read(4096).decode("utf-8", "ignore")
+        m = re.search(r'<dimension ref="[A-Z]+\d+:([A-Z]+)(\d+)"', head)
+        if m:
+            cot, dong = _cot_so(m.group(1)), int(m.group(2))
+            if cot > kb.VONG1["excel_cot_ao"] or dong > kb.VONG1["excel_dong_ao"]:
+                ao.append(f"{m.group(1)}{dong}")
+    if ao:
+        add(LUU_Y, "File Excel có vùng định dạng thừa kéo tới ô " + ", ".join(ao[:3]) +
+            " (hàng nghìn cột/dòng trống) – nhiều máy mở rất chậm; công cụ đã bỏ qua phần thừa.",
+            "Xóa các cột/dòng trống thừa bên phải và bên dưới bảng (chọn cột → Delete), lưu lại.")
+    n_name = len(re.findall(r"<definedName\s", wb_xml or ""))
+    if n_name > kb.VONG1["excel_ten_vung"]:
+        add(LUU_Y, f"File Excel chứa {n_name:,} tên vùng (Name) rác do sao chép qua nhiều file.".replace(",", "."),
+            "Formulas › Name Manager: lọc tên lỗi (#REF!) và xóa; hoặc dán giá trị bảng sang file mới.")
+    ext = [n for n in names if n.startswith("xl/externalLinks/") and n.endswith(".xml")]
+    if ext:
+        add(LUU_Y, f"File Excel liên kết tới {len(ext)} file bên ngoài (công thức trỏ sang máy khác).",
+            "Data › Edit Links › Break Link, hoặc dán giá trị trước khi gửi.")
 
 
 def _kiem_pdf(data, add, ts, ocr_ok, ocr):
@@ -243,7 +285,7 @@ def vong1_noi_dung(v, doc, ten_file=""):
         if v.ket_luan == KL_DAT:
             v.ket_luan = KL_LUU_Y
     nd = cot_loi.nhan_dien_nha_thau(doc, ten_file)
-    nd["loai_goi_y"] = doan_loai_nt(doc.get("meta", {}), doc.get("text", ""))
+    nd["loai_goi_y"] = doan_loai_nt(doc.get("meta", {}), (ten_file or "").replace("_", " ") + " " + str(doc.get("text", "")))
     nd["kieu"] = kieu
     nd["so_dong"] = len([r for r in doc["rows"] if not r.get("la_tep")])
     nd["du_an"] = doc.get("meta", {}).get("du_an", "")

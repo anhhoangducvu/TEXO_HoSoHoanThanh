@@ -28,7 +28,7 @@ APP_DIR = os.path.dirname(os.path.abspath(__file__))
 LOGO = os.path.join(APP_DIR, "assets", "logo_texo.png")
 MARK = os.path.join(APP_DIR, "assets", "logo_mark.png")
 SECRETS_FILE = os.path.join(APP_DIR, ".secrets_local.json")
-VERSION = "2.1 · 14/11/2026"
+VERSION = "2.2 · 17/11/2026"
 APP_NAME = "Kiểm tra Hồ sơ chất lượng dự án"
 
 st.set_page_config(page_title="TEXO · Kiểm tra Hồ sơ chất lượng dự án", page_icon=MARK if os.path.exists(MARK) else "📁",
